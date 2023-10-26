@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const debug = require("debug")("mern:config:database");
+const debug = require("debug")("finviewx:config:database");
 
 mongoose.set("debug", true);
 mongoose.connect(process.env.DATABASE_URL);

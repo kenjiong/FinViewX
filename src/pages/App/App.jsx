@@ -1,5 +1,20 @@
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import AuthPage from "../AuthPage/AuthPage";
+import { getUser } from "../../utilities/users-service";
+import debug from "debug";
+
+const log = debug("finviewx:src:App");
+localStorage.debug = "finviewx:*";
+
 function App() {
-  return <h1 className="text-3xl font-bold underline text-red-500">Welcome to FinViewX</h1>;
+  const [user, setUser] = useState(getUser());
+
+  return (
+    <>
+      <main>{user ? <></> : <AuthPage setUser={setUser} />}</main>
+    </>
+  );
 }
 
 export default App;
