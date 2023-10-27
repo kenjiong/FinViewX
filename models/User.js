@@ -23,8 +23,9 @@ const userSchema = new Schema(
     },
     tier: {
       type: String,
-      default: free
-    }
+      default: "free",
+      required: true,
+    },
   },
   {
     timestamps: true,

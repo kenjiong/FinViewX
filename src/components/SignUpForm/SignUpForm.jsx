@@ -49,7 +49,7 @@ export default function SignUpForm({
             type="text"
             name="name"
             value={userData.name}
-            placeholder="Enter your name"
+            placeholder="First Last"
             onChange={handleChange}
             required
           />
@@ -58,7 +58,7 @@ export default function SignUpForm({
             type="email"
             name="email"
             value={userData.email}
-            placeholder="Enter your email"
+            placeholder="Please enter your email"
             onChange={handleChange}
             required
           />
@@ -68,7 +68,7 @@ export default function SignUpForm({
               type={showPassword ? "text" : "password"}
               name="password"
               value={userData.password}
-              placeholder="Enter your password"
+              placeholder="Min 8 characters"
               onChange={handleChange}
               required
             />
@@ -82,7 +82,7 @@ export default function SignUpForm({
               type={showPassword ? "text" : "password"}
               name="confirm"
               value={userData.confirm}
-              placeholder="Confirm password"
+              placeholder="Confirm your password"
               onChange={handleChange}
               required
             />

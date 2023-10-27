@@ -41,7 +41,7 @@ export default function LoginForm({
             type="text"
             name="email"
             value={credentials.email}
-            placeholder="Enter email"
+            placeholder="Please enter your email"
             onChange={handleChange}
             required
           />
@@ -51,7 +51,7 @@ export default function LoginForm({
               type={showPassword ? "text" : "password"}
               name="password"
               value={credentials.password}
-              placeholder="Enter password"
+              placeholder="Please enter your password"
               onChange={handleChange}
               required
             />
