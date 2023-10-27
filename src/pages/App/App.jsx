@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import LandingPage from "../LandingPage/LandingPage";
 import AuthPage from "../AuthPage/AuthPage";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
@@ -12,7 +13,27 @@ function App() {
 
   return (
     <>
-      <main>{user ? <></> : <AuthPage setUser={setUser} />}</main>
+      <main>
+        {user ? (
+          <>
+            <NavBar />
+            <Routes>
+              <Route path="/dashboard" element={<DashboardPage />}></Route>
+              <Route path="/save" element={<SavePage />}></Route>
+              <Route path="/retire" element={<RetirePage />}></Route>
+              <Route path="/premium" element={<PremiumPage />}></Route>
+            </Routes>
+          </>
+        ) : (
+          <Routes>
+            <Route path="/" element={<LandingPage />}></Route>
+            <Route
+              path="/auth"
+              element={<AuthPage setUser={setUser} />}
+            ></Route>
+          </Routes>
+        )}
+      </main>
     </>
   );
 }
