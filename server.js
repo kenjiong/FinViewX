@@ -4,7 +4,7 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const debug = require("debug")("mern:server");
-const usersRouter = require("./routes/api/users");
+const usersRouter = require("./routes/api/usersRoutes");
 
 //* app
 const app = express();
@@ -18,7 +18,7 @@ app.use(require("./config/checkToken"));
 
 //* routes
 app.get("/api", (req, res) => {
-  res.send("Hello World");
+  res.send("Welcome to FinViewX");
 });
 // API routes
 app.use("/api/users", usersRouter);

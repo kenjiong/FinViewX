@@ -28,10 +28,10 @@ export default function SignUpForm({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      delete formData.confirm;
+      delete userData.confirm;
       const newUser = await usersService.signUp(userData);
       localStorage.setItem("token", newUser.token);
-      setUser(newUser);
+      setUser(usersService.getUser());
       navigate("/dashboard");
     } catch (error) {
       setError("Sign Up Failed - Try Again");

@@ -1,19 +1,50 @@
-export default function PremiumPage() {
-    return (
-      <>
-        <div className="text-center">
-          <h4 className="mb-5 text-5xl font-bold">
-            See your finances in a single view.
-          </h4>
-          <p className="mb-5 text-xl">Save for rainy days.</p>
-          <p className="mb-5 text-xl">Plan your retirement.</p>
-          <br />
-          <p className="mb-5 text-2xl">All in one place.</p>
-          <br />
-          <Link to="/auth">
-            <button>Start your FinViewX journey here</button>
-          </Link>
-        </div>
-      </>
-    );
+export default function PremiumPage({user}) {
+  return (
+    <>
+      <div className="text-center">
+        <table>
+          <tbody>
+            <tr>
+              <th>&nbsp;</th>
+              <th>Free</th>
+              <th>Premium</th>
+            </tr>
+            <tr>
+              <td>See your finances in one view</td>
+              <td>&#x2714;</td>
+              <td>&#x2714;</td>
+            </tr>
+            <tr>
+              <td>Track your emergency funds</td>
+              <td>&#x2718;</td>
+              <td>&#x2714;</td>
+            </tr>
+            <tr>
+              <td>Plan your retirement</td>
+              <td>&#x2718;</td>
+              <td>&#x2714;</td>
+            </tr>
+            <tr>
+              <td>Flex on the peasants with swag</td>
+              <td>&#x2718;</td>
+              <td>&#x2714;</td>
+            </tr>
+              {user.tier === "free" ?
+              <tr>
+              <td>&nbsp;</td>
+              <td>Your Current Plan</td>
+              <td><button>Sign Up for Premium today!</button></td>
+              </tr>
+              :
+              <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>You are already on Premium!</td>
+              </tr>
   }
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
