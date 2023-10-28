@@ -38,7 +38,7 @@ export default function LoginForm({
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={credentials.email}
             placeholder="Please enter your email"
@@ -52,6 +52,7 @@ export default function LoginForm({
               name="password"
               value={credentials.password}
               placeholder="Please enter your password"
+              minlength="8"
               onChange={handleChange}
               required
             />

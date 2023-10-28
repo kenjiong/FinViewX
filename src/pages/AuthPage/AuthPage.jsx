@@ -5,6 +5,7 @@ import SignUpForm from "../../components/SignUpForm/SignUpForm";
 export default function AuthPage({ setUser }) {
   const [show, setShow] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleShow = () => {
     setShow(!show);
@@ -13,6 +14,10 @@ export default function AuthPage({ setUser }) {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleShowConfirm = () => {
+    setShowConfirm(!showConfirm);
+  }
 
   return (
     <main>
@@ -34,6 +39,8 @@ export default function AuthPage({ setUser }) {
             setUser={setUser}
             showPassword={showPassword}
             handleShowPassword={handleShowPassword}
+            showConfirm={showConfirm}
+            handleShowConfirm={handleShowConfirm}
           />
         </>
       )}

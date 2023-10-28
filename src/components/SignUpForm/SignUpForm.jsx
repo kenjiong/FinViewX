@@ -7,6 +7,8 @@ export default function SignUpForm({
   setUser,
   showPassword,
   handleShowPassword,
+  showConfirm,
+  handleShowConfirm
 }) {
   const [userData, setUserData] = useState({
     name: "",
@@ -17,7 +19,7 @@ export default function SignUpForm({
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
+  function handleChange (event) {
     setUserData({
       ...userData,
       [event.target.name]: event.target.value,
@@ -25,7 +27,7 @@ export default function SignUpForm({
     setError("");
   };
 
-  const handleSubmit = async (event) => {
+  async function handleSubmit (event) {
     event.preventDefault();
     try {
       delete userData.confirm;
@@ -58,7 +60,7 @@ export default function SignUpForm({
             type="email"
             name="email"
             value={userData.email}
-            placeholder="Please enter your email"
+            placeholder="email@example.com"
             onChange={handleChange}
             required
           />
@@ -69,6 +71,7 @@ export default function SignUpForm({
               name="password"
               value={userData.password}
               placeholder="Min 8 characters"
+              minlength="8"
               onChange={handleChange}
               required
             />
@@ -79,15 +82,16 @@ export default function SignUpForm({
           <label>Confirm</label>
           <div>
             <input
-              type={showPassword ? "text" : "password"}
+              type={showConfirm ? "text" : "password"}
               name="confirm"
               value={userData.confirm}
               placeholder="Confirm your password"
+              minlength="8"
               onChange={handleChange}
               required
             />
-            <button type="button" onClick={handleShowPassword}>
-              {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
+            <button type="button" onClick={handleShowConfirm}>
+              {showConfirm ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
             </button>
           </div>
           <button type="submit" disabled={disable}>

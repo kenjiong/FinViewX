@@ -5,6 +5,10 @@ const path = require("path");
 const logger = require("morgan");
 const debug = require("debug")("mern:server");
 const usersRouter = require("./routes/api/usersRoutes");
+const assetsRouter = require("./routes/api/assetsRoutes");
+const liabilitiesRouter = require("./routes/api/liabilitiesRoutes");
+const savingsRouter = require("./routes/api/savingsRoutes");
+const retirementRouter = require("./routes/api/retirementRoutes");
 
 //* app
 const app = express();
@@ -22,6 +26,11 @@ app.get("/api", (req, res) => {
 });
 // API routes
 app.use("/api/users", usersRouter);
+app.use("/api/assets", assetsRouter);
+app.use("/api/liabilities", liabilitiesRouter);
+app.use("/api/savings", savingsRouter);
+app.use("/api/retirement", retirementRouter);
+
 // "catch all" route
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "dist", "index.html"));

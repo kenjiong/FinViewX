@@ -14,4 +14,4 @@ const retirementSchema = new Schema(
   }
 );
 
-module.exports = model("Savings", savingsSchema);
+module.exports = model("Retirement", retirementSchema);
