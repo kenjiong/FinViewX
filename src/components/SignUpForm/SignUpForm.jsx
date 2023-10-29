@@ -71,7 +71,7 @@ export default function SignUpForm({
               name="password"
               value={userData.password}
               placeholder="Min 8 characters"
-              minlength="8"
+              minLength="8"
               onChange={handleChange}
               required
             />

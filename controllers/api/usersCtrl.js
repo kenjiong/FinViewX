@@ -44,7 +44,6 @@ function createJWT(user) {
 }
 
 module.exports = {
-  showDashboard,
   create,
   login,
   checkToken,

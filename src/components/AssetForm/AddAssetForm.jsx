@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as assetsService from "../../utilities/asset-service";
+import * as assetsService from "../../utilities/assets-service";
+import { getUser } from "../../utilities/users-service";
 
-export default function AddAssetForm({ user }) {
+export default function AddAssetForm({ setUser, setShowAssetForm }) {
   const [asset, setAsset] = useState({
     type: "",
     name: "",
@@ -20,12 +21,13 @@ export default function AddAssetForm({ user }) {
     event.preventDefault();
     try {
       await assetsService.createAsset(asset);
-      setUser(usersService.getUser());
+      setUser(getUser());
       setAsset({
         type: "",
         name: "",
         value: 0,
       });
+      setShowAssetForm(false);
       navigate("/dashboard");
     } catch (error) {
       setError("Asset addition failed - Try Again");
@@ -34,10 +36,11 @@ export default function AddAssetForm({ user }) {
 
   return (
     <div>
+      <h3>New Asset</h3>
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label for="type-select">Type</label>
-          <select name="type" value={asset.type} id="type-select" onChange={handleChange}>
+          <select name="type" value={asset.type} id="type-select" onChange={handleChange} required>
             <option value="">Please choose the type of asset</option>
             <option value="cash">Cash</option>
             <option value="investment">Cash Investment</option>
@@ -51,11 +54,11 @@ export default function AddAssetForm({ user }) {
           <label>Asset Name</label>
           {asset.type === "cpf" ? (
             <>
-              <select name="name" value={asset.name} onChange={handleChange}>
+              <select name="name" value={asset.name} onChange={handleChange} required>
                 <option value="">Please choose the CPF account</option>
-                <option value="oa">OA</option>
-                <option value="sa">SA</option>
-                <option value="ma">MA</option>
+                <option value="OA">OA</option>
+                <option value="SA">SA</option>
+                <option value="MA">MA</option>
               </select>
             </>
           ) : (
@@ -80,7 +83,8 @@ export default function AddAssetForm({ user }) {
             onChange={handleChange}
             required
           />
-          <button type="submit">Add Asset</button>
+          <button type="submit">Add Asset</button>{" "}|{" "}
+          <button type="button" onClick={()=>setShowAssetForm(false)}>Back</button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>

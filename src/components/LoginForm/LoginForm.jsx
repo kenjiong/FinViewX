@@ -52,7 +52,7 @@ export default function LoginForm({
               name="password"
               value={credentials.password}
               placeholder="Please enter your password"
-              minlength="8"
+              minLength="8"
               onChange={handleChange}
               required
             />

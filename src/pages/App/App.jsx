@@ -24,7 +24,7 @@ function App() {
             <NavBar user={user} setUser={setUser} />
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/dashboard" element={<DashboardPage user={user} setUser={setUser} />} />
               <Route path="/save" element={<SavePage user={user} />} />
               <Route path="/retire" element={<RetirePage user={user} />} />
               <Route path="/premium" element={<PremiumPage user={user} />} />
