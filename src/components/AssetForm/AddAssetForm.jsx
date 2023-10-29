@@ -19,12 +19,16 @@ export default function AddAssetForm({ user }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const newAsset = await assetsService.login(credentials);
-      localStorage.setItem("token", user.token);
+      await assetsService.createAsset(asset);
       setUser(usersService.getUser());
+      setAsset({
+        type: "",
+        name: "",
+        value: 0,
+      });
       navigate("/dashboard");
     } catch (error) {
-      setError("Log In Failed - Try Again");
+      setError("Asset addition failed - Try Again");
     }
   }
 
@@ -32,31 +36,51 @@ export default function AddAssetForm({ user }) {
     <div>
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
+          <label for="type-select">Type</label>
+          <select name="type" value={asset.type} id="type-select" onChange={handleChange}>
+            <option value="">Please choose the type of asset</option>
+            <option value="cash">Cash</option>
+            <option value="investment">Cash Investment</option>
+            <option value="cpf">CPF</option>
+            <option value="insurance">
+              Insurance (Protection with cash value)
+            </option>
+            <option value="property">Property</option>
+            <option value="other">Other</option>
+          </select>
+          <label>Asset Name</label>
+          {asset.type === "cpf" ? (
+            <>
+              <select name="name" value={asset.name} onChange={handleChange}>
+                <option value="">Please choose the CPF account</option>
+                <option value="oa">OA</option>
+                <option value="sa">SA</option>
+                <option value="ma">MA</option>
+              </select>
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                name="name"
+                value={asset.name}
+                placeholder="Asset Name"
+                onChange={handleChange}
+                required
+              />
+            </>
+          )}
+          <label>Asset Value</label>
           <input
-            type="email"
-            name="email"
-            value={credentials.email}
-            placeholder="Please enter your email"
+            type="number"
+            name="value"
+            value={asset.value}
+            placeholder="Asset Name"
+            min="0"
             onChange={handleChange}
             required
           />
-          <label>Password</label>
-          <div>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={credentials.password}
-              placeholder="Please enter your password"
-              minlength="8"
-              onChange={handleChange}
-              required
-            />
-            <button type="button" onClick={handleShowPassword}>
-              {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
-            </button>
-          </div>
-          <button type="submit">LOG IN</button>
+          <button type="submit">Add Asset</button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>

@@ -1,5 +1,4 @@
 const User = require("../../models/User");
-const NetWorth = require("../../models/NetWorth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const debug = require("debug")("finviewx:controllers:api:usersCtrl");
@@ -31,19 +30,6 @@ async function login(req, res) {
 function checkToken(req, res) {
   console.log("req.user", req.user);
   res.json(req.exp);
-}
-
-async function showDashboard(req, res) {
-  try {
-    const user = await User.findById(req.user._id);
-    const netWorth = await NetWorth.find({ user: user._id });
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.status(200).json({ netWorth });
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
 }
 
 /*-- Helper Functions --*/
