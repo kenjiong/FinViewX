@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import AddAssetForm from "../../components/AssetForm/AddAssetForm";
 import AddLiabilityForm from "../../components/LiabilityForm/AddLiabilityForm";
-// import EditAssetForm from "../../components/AssetForm/EditAssetForm";
-// import EditLiabilityForm from "../../components/LiabilityForm/EditLiabilityForm";
 import * as assetsService from "../../utilities/assets-service";
 import * as liabilitiesService from "../../utilities/liabilities-service";
 import debug from "debug";
@@ -14,8 +12,6 @@ export default function DashboardPage({ user, setUser }) {
   const [liabilities, setLiabilities] = useState([]);
   const [showAssetForm, setShowAssetForm] = useState(false);
   const [showLiabilityForm, setShowLiabilityForm] = useState(false);
-  const [showEditAsset, setShowEditAsset] = useState(false);
-  const [showEditLiability, setShowEditLiability] = useState(false);
   const userId = user._id;
 
   const totalAssets = assets.reduce((acc, asset) => acc + asset.value, 0);
@@ -52,8 +48,7 @@ export default function DashboardPage({ user, setUser }) {
   const handleDeleteAsset = async (event) => {
     const assetId = event.currentTarget.getAttribute("assetId");
     try {
-      const updatedUser = await assetsService.deleteAsset(assetId);
-      setUser(updatedUser);
+      await assetsService.deleteAsset(assetId);
     } catch (error) {
       log(error);
     }
@@ -62,8 +57,7 @@ export default function DashboardPage({ user, setUser }) {
   const handleDeleteLiability = async (event) => {
     const liabilityId = event.currentTarget.getAttribute("liabilityId");
     try {
-      const updatedUser = await liabilitiesService.deleteLiability(liabilityId);
-      setUser(updatedUser);
+      await liabilitiesService.deleteLiability(liabilityId);
     } catch (error) {
       log(error);
     }
@@ -76,15 +70,7 @@ export default function DashboardPage({ user, setUser }) {
   const handleShowAddLiability = () => {
     setShowLiabilityForm(!showLiabilityForm);
   };
-
-  const handleShowEditAsset = () => {
-    setShowEditAsset(!showEditAsset);
-  };
-
-  const handleShowEditLiability = () => {
-    setShowEditLiability(!showEditLiability);
-  };
-
+  
   return (
     <>
       {showAssetForm ? (
