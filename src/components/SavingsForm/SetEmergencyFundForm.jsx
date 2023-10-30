@@ -18,8 +18,7 @@ export default function SetEmergencyFundForm() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const updatedUser = await savingsService.setEmergencyFund(formData);
-      setUser(updatedUser);
+      await savingsService.setEmergencyFund(formData);
       setFormData({
         monthlyExpenses: 0,
         months: 0,

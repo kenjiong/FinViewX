@@ -6,7 +6,7 @@ import debug from "debug";
 
 const log = debug("finviewx:src:SavePage");
 
-export default function SaveFormPage({ user, setUser }) {
+export default function SaveFormPage({ user }) {
   const [savings, setSavings] = useState([]);
   const userId = user._id;
 
@@ -26,11 +26,11 @@ export default function SaveFormPage({ user, setUser }) {
     <>
       {savings[0]?.monthlyExpenses ? (
         <>
-          <EditEmergencyFundForm setUser={setUser}/>
+          <EditEmergencyFundForm savings={savings[0]} />
         </>
       ) : (
         <>
-          <SetEmergencyFundForm setUser={setUser}/>
+          <SetEmergencyFundForm />
         </>
       )}
     </>

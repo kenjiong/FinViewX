@@ -1,15 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import * as usersService from "../../utilities/users-service";
+import debug from "debug";
 
-export default function PremiumPage({ user, setUser }) {
+const log = debug("finviewx:src:PremiumPage");
+
+export default function PremiumPage({ user }) {
   const navigate = useNavigate();
+  const userId = user._id;
 
   const handleUpdateTier = async (event) => {
     event.preventDefault();
     const newTier = "premium";
-    const updatedUser = await usersService.updateTier(newTier, user._id);
-    setUser(updatedUser);
-    navigate("/dashboard");
+    try {
+      await usersService.updateTier(newTier, userId);
+      navigate("/dashboard");
+    } catch (error) {
+      log(error);
+    }
   };
 
   return (
