@@ -26,7 +26,7 @@ export default function SaveFormPage({ user }) {
     <>
       {savings[0]?.monthlyExpenses ? (
         <>
-          <EditEmergencyFundForm savings={savings[0]} />
+          <EditEmergencyFundForm savings={savings[0]} setSavings={setSavings}/>
         </>
       ) : (
         <>

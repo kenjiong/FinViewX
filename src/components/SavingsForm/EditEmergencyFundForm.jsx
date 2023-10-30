@@ -5,22 +5,24 @@ import debug from "debug";
 
 const log = debug("finviewx:src:SavingsForm");
 
-export default function EditEmergencyFundForm({ savings }) {
-  const savingsId = savings._id;
+export default function EditEmergencyFundForm({ savings, setSavings }) {
   const [monthlyExpenses, setMonthlyExpenses] = useState(
     savings.monthlyExpenses
   );
   const [months, setMonths] = useState(savings.months);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const savingsId = savings._id;
 
-  async function handleEdit() {
+  async function handleEdit(event) {
+    event.preventDefault();
     const savings = {
       monthlyExpenses,
       months,
     };
     try {
-      await savingsService.editEmergencyFund(savings, savingsId);
+      const updatedSavings = await savingsService.editEmergencyFund(savings, savingsId);
+      setSavings(updatedSavings);
       navigate("/save");
     } catch (error) {
       setError("Failed to edit emergency fund - Try again");
