@@ -20,8 +20,8 @@ export default function AddAssetForm({ setUser, setShowAssetForm }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await assetsService.createAsset(asset);
-      setUser(getUser());
+      const updatedUser = await assetsService.createAsset(asset);
+      setUser(updatedUser);
       setAsset({
         type: "",
         name: "",
@@ -77,6 +77,7 @@ export default function AddAssetForm({ setUser, setShowAssetForm }) {
           <input
             type="number"
             name="value"
+            step=".01"
             value={asset.value}
             placeholder="Asset Name"
             min="0"

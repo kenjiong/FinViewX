@@ -9,8 +9,8 @@ export const createAsset = (asset) => {
 	return sendRequest(BASE_URL, "POST", asset);
 };
 
-export const editAsset = (asset) => {
-	return sendRequest(BASE_URL, "PATCH", asset);
+export const editAsset = (asset, assetId) => {
+	return sendRequest(`${BASE_URL}/${assetId}`, "PATCH", asset);
 };
 
 export const deleteAsset = (assetId) => {

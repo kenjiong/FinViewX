@@ -32,6 +32,19 @@ function checkToken(req, res) {
   res.json(req.exp);
 }
 
+async function updateTier(req, res) {
+  try {
+  const user = await User.findOne({ _id: req.user._id });
+  const { tier } = req.body;
+  user.tier = tier;
+
+  await user.save();
+  res.status(200).json({ message: "Premium subscription successful" });
+  } catch (error) {
+    res.status(500).json({ error: "Premium subscription unsuccessful" });
+  }
+}
+
 /*-- Helper Functions --*/
 
 function createJWT(user) {
@@ -47,4 +60,5 @@ module.exports = {
   create,
   login,
   checkToken,
+  updateTier,
 };

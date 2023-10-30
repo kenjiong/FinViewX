@@ -15,8 +15,8 @@ export const createLiability = async (liability) => {
   return data;
 };
 
-export const editLiability = async (liability) => {
-  const data = await liabilitiesAPI.editLiability(liability);
+export const editLiability = async (liability, liabilityId) => {
+  const data = await liabilitiesAPI.editLiability(liability, liabilityId);
   log(data);
   return data;
 };

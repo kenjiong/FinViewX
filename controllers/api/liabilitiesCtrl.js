@@ -15,7 +15,7 @@ const createLiability = async (req, res) => {
     const { type, name, value } = req.body;
     const userId = req.user._id;
     const liability = { type, name, value, user: userId };
-    const newLiability = await Liability.createLiability(liability);
+    const newLiability = await Liability.create(liability);
     res.status(201).json({ newLiability });
   } catch (error) {
     res.status(500).json({ error: "Please try again" });

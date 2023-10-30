@@ -1,4 +1,17 @@
-export default function PremiumPage({user}) {
+import { useNavigate } from "react-router-dom";
+import * as usersService from "../../utilities/users-service";
+
+export default function PremiumPage({ user, setUser }) {
+  const navigate = useNavigate();
+
+  const handleUpdateTier = async (event) => {
+    event.preventDefault();
+    const newTier = "premium";
+    const updatedUser = await usersService.updateTier(newTier, user._id);
+    setUser(updatedUser);
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <div className="text-center">
@@ -29,19 +42,23 @@ export default function PremiumPage({user}) {
               <td>&#x2718;</td>
               <td>&#x2714;</td>
             </tr>
-              {user.tier === "free" ?
+            {user.tier === "free" ? (
               <tr>
-              <td>&nbsp;</td>
-              <td>Your Current Plan</td>
-              <td><button>Sign Up for Premium today!</button></td>
+                <td>&nbsp;</td>
+                <td>Your Current Plan</td>
+                <td>
+                  <button onClick={handleUpdateTier}>
+                    Sign Up for Premium today!
+                  </button>
+                </td>
               </tr>
-              :
+            ) : (
               <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>You are already on Premium!</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>You are already on Premium!</td>
               </tr>
-  }
+            )}
           </tbody>
         </table>
       </div>

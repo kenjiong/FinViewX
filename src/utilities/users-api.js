@@ -12,3 +12,7 @@ export async function login(credentials) {
 export function checkToken() {
   return sendRequest(`${BASE_URL}/check-token`);
 }
+
+export function updateTier(updatedTier, userId) {
+  return sendRequest(`${BASE_URL}/${userId}`, "PATCH", updatedTier);
+}

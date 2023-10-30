@@ -31,7 +31,14 @@ export function logOut() {
 }
 
 export async function checkToken() {
-  const data = await userApi.checkToken();
+  const data = await usersAPI.checkToken();
   const date = new Date(data);
   return date;
+}
+
+export async function updateTier(newTier, userId) {
+  const updatedTier = { tier: newTier };
+  const data = await usersAPI.updateTier(updatedTier, userId);
+  log(data);
+  return data;
 }

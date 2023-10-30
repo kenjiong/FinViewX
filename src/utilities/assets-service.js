@@ -15,8 +15,8 @@ export const createAsset = async (asset) => {
   return data;
 };
 
-export const editAsset = async (asset) => {
-  const data = await assetsAPI.editAsset(asset);
+export const editAsset = async (asset, assetId) => {
+  const data = await assetsAPI.editAsset(asset, assetId);
   log(data);
   return data;
 };

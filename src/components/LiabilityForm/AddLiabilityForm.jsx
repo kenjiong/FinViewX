@@ -20,8 +20,8 @@ export default function AddLiabilityForm({ setUser, setShowLiabilityForm }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await liabilitiesService.createLiability(liability);
-      setUser(getUser());
+      const updatedUser = await liabilitiesService.createLiability(liability);
+      setUser(updatedUser);
       setLiability({
         type: "",
         name: "",
@@ -65,6 +65,7 @@ export default function AddLiabilityForm({ setUser, setShowLiabilityForm }) {
           <input
             type="number"
             name="value"
+            step=".01"
             value={liability.value}
             placeholder="Asset Name"
             min="0"

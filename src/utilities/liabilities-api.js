@@ -9,8 +9,8 @@ export const createLiability = (liability) => {
 	return sendRequest(BASE_URL, "POST", liability);
 };
 
-export const editLiability = (liability) => {
-	return sendRequest(BASE_URL, "PATCH", liability);
+export const editLiability = (liability, liabilityId) => {
+	return sendRequest(`${BASE_URL}/${liabilityId}`, "PATCH", liability);
 };
 
 export const deleteLiability = (liabilityId) => {

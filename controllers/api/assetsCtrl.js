@@ -15,7 +15,7 @@ const createAsset = async (req, res) => {
     const { type, name, value } = req.body;
     const userId = req.user._id;
     const asset = { type, name, value, user: userId };
-    const newAsset = await Asset.createAsset(asset);
+    const newAsset = await Asset.create(asset);
     res.status(201).json({ newAsset });
   } catch (error) {
     res.status(500).json({ error: "Please try again" });
