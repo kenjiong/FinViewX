@@ -5,7 +5,9 @@ import AuthPage from "../AuthPage/AuthPage";
 import NavBar from "../../components/NavBar/NavBar";
 import DashboardPage from "../DashboardPage/DashboardPage";
 import SavePage from "../SavePage/SavePage";
+import SaveFormPage from "../SavePage/SaveFormPage";
 import RetirePage from "../RetirePage/RetirePage";
+import RetireFormPage from "../RetirePage/RetireFormPage";
 import PremiumPage from "../PremiumPage/PremiumPage";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
@@ -34,7 +36,9 @@ function App() {
                 }
               />
               <Route path="/save" element={<SavePage user={user} />} />
+              <Route path="/save/form" element={<SaveFormPage user={user} setUser={setUser} />} />
               <Route path="/retire" element={<RetirePage user={user} />} />
+              <Route path="/retire/form" element={<RetireFormPage />} />
               <Route path="/premium" element={<PremiumPage user={user} setUser={setUser} />} />
             </Routes>
           </>

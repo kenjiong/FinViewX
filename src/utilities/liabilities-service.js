@@ -22,7 +22,7 @@ export const editLiability = async (liability, liabilityId) => {
 };
 
 export const deleteLiability = async (liabilityId) => {
-	const data = await liabilitiesAPI.deleteAsset(liabilityId);
+	const data = await liabilitiesAPI.deleteLiability(liabilityId);
 	log(data);
 	return data;
 }

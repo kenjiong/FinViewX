@@ -23,7 +23,7 @@ export default function DashboardPage({ user, setUser }) {
     (acc, liability) => acc + liability.value,
     0
   );
-  const netWorth = (totalAssets - totalLiabilities);
+  const netWorth = totalAssets - totalLiabilities;
 
   useEffect(() => {
     const fetchAssets = async () => {
@@ -105,9 +105,21 @@ export default function DashboardPage({ user, setUser }) {
               Your Financial Dashboard
             </h3>
             {netWorth < 0 ? (
-              <p className="mb-5 text-xl">Net Worth: -S${Math.abs(netWorth).toLocaleString()}</p>
+              <p className="mb-5 text-xl">
+                Net Worth: -S$
+                {Math.abs(netWorth).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </p>
             ) : (
-              <p className="mb-5 text-xl">Net Worth: S${netWorth.toLocaleString()}</p>
+              <p className="mb-5 text-xl">
+                Net Worth: S$
+                {netWorth.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </p>
             )}
             <div>
               <table>
@@ -126,7 +138,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={asset._id}>{`${
                               asset.name
-                            } - S$${asset.value.toLocaleString()}`}</span>
+                            } - S$${asset.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Asset</button> |{" "}
@@ -150,7 +165,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={liability._id}>{`${
                               liability.name
-                            } - S$${liability.value.toLocaleString()}`}</span>
+                            } - S$${liability.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Liability</button> |{" "}
@@ -177,7 +195,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={asset._id}>{`${
                               asset.name
-                            } - S$${asset.value.toLocaleString()}`}</span>
+                            } - S$${asset.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Asset</button> |{" "}
@@ -201,7 +222,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={liability._id}>{`${
                               liability.name
-                            } - S$${liability.value.toLocaleString()}`}</span>
+                            } - S$${liability.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Liability</button> |{" "}
@@ -228,7 +252,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={asset._id}>{`${
                               asset.name
-                            } - S$${asset.value.toLocaleString()}`}</span>
+                            } - S$${asset.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Asset</button> |{" "}
@@ -252,7 +279,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={liability._id}>{`${
                               liability.name
-                            } - S$${liability.value.toLocaleString()}`}</span>
+                            } - S$${liability.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Liability</button> |{" "}
@@ -279,7 +309,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={asset._id}>{`${
                               asset.name
-                            } - S$${asset.value.toLocaleString()}`}</span>
+                            } - S$${asset.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Asset</button> |{" "}
@@ -307,7 +340,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={asset._id}>{`${
                               asset.name
-                            } - S$${asset.value.toLocaleString()}`}</span>
+                            } - S$${asset.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Asset</button> |{" "}
@@ -335,7 +371,10 @@ export default function DashboardPage({ user, setUser }) {
                           <>
                             <span key={asset._id}>{`${
                               asset.name
-                            } - S$${asset.value.toLocaleString()}`}</span>
+                            } - S$${asset.value.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}`}</span>
                             &nbsp;&nbsp;
                             <span>
                               <button>Edit Asset</button> |{" "}
