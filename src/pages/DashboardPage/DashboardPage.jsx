@@ -23,27 +23,29 @@ export default function DashboardPage({ user, setUser }) {
   );
   const netWorth = totalAssets - totalLiabilities;
 
+  const fetchAssets = async () => {
+    try {
+      const data = await assetsService.getAllAssets(userId);
+      setAssets(data);
+    } catch (error) {
+      log(error);
+    }
+  };
+
+  const fetchLiabilities = async () => {
+    try {
+      const data = await liabilitiesService.getAllLiabilities(userId);
+      setLiabilities(data);
+    } catch (error) {
+      log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchAssets = async () => {
-      try {
-        const data = await assetsService.getAllAssets(userId);
-        setAssets(data);
-      } catch (error) {
-        log(error);
-      }
-    };
     fetchAssets();
   }, [userId]);
 
   useEffect(() => {
-    const fetchLiabilities = async () => {
-      try {
-        const data = await liabilitiesService.getAllLiabilities(userId);
-        setLiabilities(data);
-      } catch (error) {
-        log(error);
-      }
-    };
     fetchLiabilities();
   }, [userId]);
 
@@ -51,6 +53,7 @@ export default function DashboardPage({ user, setUser }) {
     const assetId = event.currentTarget.getAttribute("assetId");
     try {
       await assetsService.deleteAsset(assetId);
+      fetchAssets();
     } catch (error) {
       log(error);
     }
@@ -60,6 +63,7 @@ export default function DashboardPage({ user, setUser }) {
     const liabilityId = event.currentTarget.getAttribute("liabilityId");
     try {
       await liabilitiesService.deleteLiability(liabilityId);
+      fetchLiabilities();
     } catch (error) {
       log(error);
     }
@@ -72,17 +76,20 @@ export default function DashboardPage({ user, setUser }) {
   const handleShowAddLiability = () => {
     setShowLiabilityForm(!showLiabilityForm);
   };
-  
+
   return (
     <>
       {showAssetForm ? (
         <>
-          <AddAssetForm setUser={setUser} setShowAssetForm={setShowAssetForm} />
+          <AddAssetForm
+            fetchAssets={fetchAssets}
+            setShowAssetForm={setShowAssetForm}
+          />
         </>
       ) : showLiabilityForm ? (
         <>
           <AddLiabilityForm
-            setUser={setUser}
+            fetchLiabilities={fetchLiabilities}
             setShowLiabilityForm={setShowLiabilityForm}
           />
         </>
@@ -132,7 +139,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-asset")
+                                    .showModal()
+                                }
+                              >
+                                Edit Asset
+                              </button>
+                              <EditAssetForm
+                                asset={asset}
+                                fetchAssets={fetchAssets}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -159,7 +179,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button onClick={() => document.getElementById("edit-liability").showModal()}>Edit Liability</button><EditLiabilityForm liability = {liability} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-liability")
+                                    .showModal()
+                                }
+                              >
+                                Edit Liability
+                              </button>
+                              <EditLiabilityForm
+                                liability={liability}
+                                fetchLiabilities={fetchLiabilities}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteLiability}
                                 liabilityId={liability._id}
@@ -189,7 +222,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-asset")
+                                    .showModal()
+                                }
+                              >
+                                Edit Asset
+                              </button>
+                              <EditAssetForm
+                                asset={asset}
+                                fetchAssets={fetchAssets}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -216,7 +262,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-liability").showModal()}>Edit Liability</button><EditLiabilityForm liability = {liability} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-liability")
+                                    .showModal()
+                                }
+                              >
+                                Edit Liability
+                              </button>
+                              <EditLiabilityForm
+                                liability={liability}
+                                fetchLiabilities={fetchLiabilities}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteLiability}
                                 liabilityId={liability._id}
@@ -246,7 +305,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-asset")
+                                    .showModal()
+                                }
+                              >
+                                Edit Asset
+                              </button>
+                              <EditAssetForm
+                                asset={asset}
+                                fetchAssets={fetchAssets}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -273,7 +345,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-liability").showModal()}>Edit Liability</button><EditLiabilityForm liability = {liability} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-liability")
+                                    .showModal()
+                                }
+                              >
+                                Edit Liability
+                              </button>
+                              <EditLiabilityForm
+                                liability={liability}
+                                fetchLiabilities={fetchLiabilities}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteLiability}
                                 liabilityId={liability._id}
@@ -303,7 +388,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-asset")
+                                    .showModal()
+                                }
+                              >
+                                Edit Asset
+                              </button>
+                              <EditAssetForm
+                                asset={asset}
+                                fetchAssets={fetchAssets}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -334,7 +432,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-asset")
+                                    .showModal()
+                                }
+                              >
+                                Edit Asset
+                              </button>
+                              <EditAssetForm
+                                asset={asset}
+                                fetchAssets={fetchAssets}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -365,7 +476,20 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
+                              <button
+                                onClick={() =>
+                                  document
+                                    .getElementById("edit-asset")
+                                    .showModal()
+                                }
+                              >
+                                Edit Asset
+                              </button>
+                              <EditAssetForm
+                                asset={asset}
+                                fetchAssets={fetchAssets}
+                              />{" "}
+                              |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}

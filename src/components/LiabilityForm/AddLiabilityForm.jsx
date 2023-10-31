@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as liabilitiesService from "../../utilities/liabilities-service";
-import { getUser } from "../../utilities/users-service";
 
-export default function AddLiabilityForm({ setUser, setShowLiabilityForm }) {
+export default function AddLiabilityForm({ fetchLiabilities, setShowLiabilityForm }) {
   const [liability, setLiability] = useState({
     type: "",
     name: "",
@@ -21,7 +20,7 @@ export default function AddLiabilityForm({ setUser, setShowLiabilityForm }) {
     event.preventDefault();
     try {
       const updatedUser = await liabilitiesService.createLiability(liability);
-      setUser(updatedUser);
+      fetchLiabilities();
       setLiability({
         type: "",
         name: "",

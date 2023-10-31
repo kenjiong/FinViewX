@@ -1,10 +1,14 @@
 import { useState } from "react";
 import * as assetsService from "../../utilities/assets-service";
+import debug from "debug";
 
-export default function EditAssetForm({ asset }) {
+const log = debug("finviewx:src:AssetFormPage")
+
+export default function EditAssetForm({ asset, fetchAssets }) {
   const [name, setName] = useState(asset.name);
   const [value, setValue] = useState(asset.value);
   const assetId = asset._id;
+  log(asset);
 
   const handleEdit = async () => {
     const asset = {
@@ -12,6 +16,7 @@ export default function EditAssetForm({ asset }) {
       value,
     };
     await assetsService.editAsset(asset, assetId);
+    fetchAssets();
   };
 
   return (

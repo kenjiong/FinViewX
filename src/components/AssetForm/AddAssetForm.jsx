@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as assetsService from "../../utilities/assets-service";
-import { getUser } from "../../utilities/users-service";
 
-export default function AddAssetForm({ setUser, setShowAssetForm }) {
+export default function AddAssetForm({ fetchAssets, setShowAssetForm }) {
   const [asset, setAsset] = useState({
     type: "",
     name: "",
@@ -21,7 +20,7 @@ export default function AddAssetForm({ setUser, setShowAssetForm }) {
     event.preventDefault();
     try {
       const updatedUser = await assetsService.createAsset(asset);
-      setUser(updatedUser);
+      fetchAssets();
       setAsset({
         type: "",
         name: "",

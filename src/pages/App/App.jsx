@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
 import AuthPage from "../AuthPage/AuthPage";
 import NavBar from "../../components/NavBar/NavBar";
@@ -43,6 +43,7 @@ function App() {
         ) : (
           <Routes>
             <Route path="/" element={<LandingPage />} />
+              <Route path="*" element={<span><h3>Something went wrong. Click</h3><Link to="/">here</Link><h3>to return</h3></span>} />
             <Route path="/auth" element={<AuthPage setUser={setUser} />} />
           </Routes>
         )}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as liabilitiesService from "../../utilities/liabilities-service";
 
-export default function EditLiabilityForm({ liability }) {
+export default function EditLiabilityForm({ liability, fetchLiabilities }) {
   const [name, setName] = useState(liability.name);
   const [value, setValue] = useState(liability.value);
   const liabilityId = liability._id;
@@ -12,6 +12,7 @@ export default function EditLiabilityForm({ liability }) {
       value,
     };
     await liabilitiesService.editLiability(liability, liabilityId);
+    fetchLiabilities();
   };
 
   return (
@@ -41,11 +42,16 @@ export default function EditLiabilityForm({ liability }) {
                   onChange={(event) => setValue(event.target.value)}
                   required
                 />
-                <button className="btn" onClick={close()}>Close</button> |{" "} 
-                <button className="btn" onClick={handleEdit}>Edit Liability</button>
+                <button className="btn" onClick={close()}>
+                  Close
+                </button>{" "}
+                |{" "}
+                <button className="btn" onClick={handleEdit}>
+                  Edit Liability
+                </button>
               </form>
             </div>
-            </div>
+          </div>
         </div>
       </dialog>
     </>
