@@ -40,7 +40,6 @@ export default function EditEmergencyFundForm({ savings, setSavings }) {
           name="monthlyExpenses"
           step=".01"
           value={monthlyExpenses}
-          placeholder="1,500"
           min="0"
           onChange={(event) => setMonthlyExpenses(event.target.value)}
           required
@@ -50,7 +49,6 @@ export default function EditEmergencyFundForm({ savings, setSavings }) {
           type="number"
           name="months"
           value={months}
-          placeholder="3-6"
           min="1"
           onChange={(event) => setMonths(event.target.value)}
           required

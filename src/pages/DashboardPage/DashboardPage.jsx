@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import AddAssetForm from "../../components/AssetForm/AddAssetForm";
 import AddLiabilityForm from "../../components/LiabilityForm/AddLiabilityForm";
+import EditAssetForm from "../../components/AssetForm/EditAssetForm";
+import EditLiabilityForm from "../../components/LiabilityForm/EditLiabilityForm";
 import * as assetsService from "../../utilities/assets-service";
 import * as liabilitiesService from "../../utilities/liabilities-service";
 import debug from "debug";
@@ -130,7 +132,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Asset</button> |{" "}
+                              <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -157,7 +159,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Liability</button> |{" "}
+                              <button onClick={() => document.getElementById("edit-liability").showModal()}>Edit Liability</button><EditLiabilityForm liability = {liability} /> |{" "}
                               <button
                                 onClick={handleDeleteLiability}
                                 liabilityId={liability._id}
@@ -187,7 +189,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Asset</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -214,7 +216,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Liability</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-liability").showModal()}>Edit Liability</button><EditLiabilityForm liability = {liability} /> |{" "}
                               <button
                                 onClick={handleDeleteLiability}
                                 liabilityId={liability._id}
@@ -244,7 +246,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Asset</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -271,7 +273,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Liability</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-liability").showModal()}>Edit Liability</button><EditLiabilityForm liability = {liability} /> |{" "}
                               <button
                                 onClick={handleDeleteLiability}
                                 liabilityId={liability._id}
@@ -301,7 +303,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Asset</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -332,7 +334,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Asset</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}
@@ -363,7 +365,7 @@ export default function DashboardPage({ user, setUser }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button>Edit Asset</button> |{" "}
+                            <button onClick={() => document.getElementById("edit-asset").showModal()}>Edit Asset</button><EditAssetForm asset={asset} /> |{" "}
                               <button
                                 onClick={handleDeleteAsset}
                                 assetId={asset._id}

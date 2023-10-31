@@ -1,57 +1,53 @@
-// import { useState } from "react";
-// import { Button, Form, Modal } from "react-bootstrap";
-// import { useParams } from "react-router-dom";
-// import { editReview } from "../../utilities/review-service";
+import { useState } from "react";
+import * as assetsService from "../../utilities/assets-service";
 
-// export default function EditReviewModal({ show, onHide, review }) {
-// 	const { courseId } = useParams();
-// 	const [comments, setComments] = useState(review.comments);
-// 	const [rating, setRating] = useState(review.rating);
+export default function EditAssetForm({ asset }) {
+  const [name, setName] = useState(asset.name);
+  const [value, setValue] = useState(asset.value);
+  const assetId = asset._id;
 
-// 	const handleSaveChanges = async () => {
-// 		const review = {
-// 			comments,
-// 			rating,
-// 		};
-// 		await editReview(review, courseId);
-// 		onHide();
-// 	};
+  const handleEdit = async () => {
+    const asset = {
+      name,
+      value,
+    };
+    await assetsService.editAsset(asset, assetId);
+  };
 
-// 	return (
-// 		<Modal show={show} onHide={onHide}>
-// 			<Modal.Header closeButton>
-// 				<Modal.Title>Edit Review</Modal.Title>
-// 			</Modal.Header>
-// 			<Modal.Body>
-// 				<Form>
-// 					<Form.Group controlId="reviewText">
-// 						<Form.Label>Your Review</Form.Label>
-// 						<Form.Control
-// 							as="textarea"
-// 							rows={3}
-// 							value={comments}
-// 							onChange={(e) => setComments(e.target.value)}
-// 						/>
-// 					</Form.Group>
-// 					<br />
-// 					<Form.Group controlId="rating">
-// 						<Form.Label>Rating</Form.Label>
-// 						<Rating
-// 							name="rating"
-// 							value={rating}
-// 							onChange={(_, newValue) => setRating(newValue)}
-// 						/>
-// 					</Form.Group>
-// 				</Form>
-// 			</Modal.Body>
-// 			<Modal.Footer>
-// 				<Button variant="primary" onClick={handleSaveChanges}>
-// 					Save Changes
-// 				</Button>
-// 				<Button variant="secondary" onClick={onHide}>
-// 					Cancel
-// 				</Button>
-// 			</Modal.Footer>
-// 		</Modal>
-// 	);
-// }
+  return (
+    <>
+      <dialog id="edit-asset" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Edit Asset</h3>
+          <div className="modal-action">
+            <div className="form-container">
+              <form autoComplete="off" method="dialog">
+                <label>Asset Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  min="0"
+                  onChange={(event) => setName(event.target.value)}
+                  required
+                />
+                <label>Asset Value</label>
+                <input
+                  type="number"
+                  name="value"
+                  step=".01"
+                  value={value}
+                  min="1"
+                  onChange={(event) => setValue(event.target.value)}
+                  required
+                />
+                <button className="btn" onClick={close()}>Close</button> |{" "} 
+                <button className="btn" onClick={handleEdit}>Edit Asset</button>
+              </form>
+            </div>
+            </div>
+        </div>
+      </dialog>
+    </>
+  );
+}

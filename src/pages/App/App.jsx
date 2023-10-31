@@ -28,18 +28,16 @@ function App() {
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route
                 path="/dashboard"
-                element={
-                  <DashboardPage
-                    user={user}
-                    setUser={setUser}
-                  />
-                }
+                element={<DashboardPage user={user} setUser={setUser} />}
               />
               <Route path="/save" element={<SavePage user={user} />} />
-              <Route path="/save/form" element={<SaveFormPage user={user} setUser={setUser} />} />
+              <Route path="/save/form" element={<SaveFormPage user={user} />} />
               <Route path="/retire" element={<RetirePage user={user} />} />
               <Route path="/retire/form" element={<RetireFormPage />} />
-              <Route path="/premium" element={<PremiumPage user={user} setUser={setUser} />} />
+              <Route
+                path="/premium"
+                element={<PremiumPage user={user} setUser={setUser} />}
+              />
             </Routes>
           </>
         ) : (
