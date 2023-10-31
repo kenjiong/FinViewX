@@ -61,7 +61,10 @@ export default function SavePage({ user }) {
             </div>
             <div>
               {shortfall < 0 ? (
-                <p>You've met your ideal emergency fund</p>
+                <p>You've met your ideal emergency fund of S${totalEmergencyFund.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}!</p>
               ) : (
                 <>
                 <p>

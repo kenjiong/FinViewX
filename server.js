@@ -8,7 +8,7 @@ const usersRouter = require("./routes/api/usersRoutes");
 const assetsRouter = require("./routes/api/assetsRoutes");
 const liabilitiesRouter = require("./routes/api/liabilitiesRoutes");
 const savingsRouter = require("./routes/api/savingsRoutes");
-// const retirementRouter = require("./routes/api/retirementRoutes");
+const retirementRouter = require("./routes/api/retirementRoutes");
 
 //* app
 const app = express();
@@ -29,7 +29,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/assets", assetsRouter);
 app.use("/api/liabilities", liabilitiesRouter);
 app.use("/api/savings", savingsRouter);
-// app.use("/api/retirement", retirementRouter);
+app.use("/api/retirement", retirementRouter);
 
 // "catch all" route
 app.get("/*", function (req, res) {

@@ -82,6 +82,7 @@ export default function DashboardPage({ user, setUser }) {
       {showAssetForm ? (
         <>
           <AddAssetForm
+            assets={assets}
             fetchAssets={fetchAssets}
             setShowAssetForm={setShowAssetForm}
           />
@@ -89,6 +90,7 @@ export default function DashboardPage({ user, setUser }) {
       ) : showLiabilityForm ? (
         <>
           <AddLiabilityForm
+            liabilities={liabilities}
             fetchLiabilities={fetchLiabilities}
             setShowLiabilityForm={setShowLiabilityForm}
           />

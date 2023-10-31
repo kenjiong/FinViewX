@@ -33,7 +33,7 @@ function App() {
               <Route path="/save" element={<SavePage user={user} />} />
               <Route path="/save/form" element={<SaveFormPage user={user} />} />
               <Route path="/retire" element={<RetirePage user={user} />} />
-              <Route path="/retire/form" element={<RetireFormPage />} />
+              <Route path="/retire/form" element={<RetireFormPage user={user}/>} />
               <Route
                 path="/premium"
                 element={<PremiumPage user={user} setUser={setUser} />}

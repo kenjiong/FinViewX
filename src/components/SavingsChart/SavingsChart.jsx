@@ -5,68 +5,90 @@ export default function SavingsChart({
   totalEmergencyFund,
   shortfall,
 }) {
-
-  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const colors1 = ["#00C49F", "#0088FE"];
+  const colors2 = ["#F436FF", "#ADADAD"];
 
   const data01 = [
-  {
-    name: "Keep for emergencies",
-    value: totalEmergencyFund,
-  },
-  {
-    name: "Optimise",
-    value: Math.abs(shortfall),
-  }
-]
+    {
+      name: "Keep for emergencies",
+      value: totalEmergencyFund,
+    },
+    {
+      name: "Optimise",
+      value: Math.abs(shortfall),
+    },
+  ];
 
-const data02 = [
-  {
-    name: "Your current savings",
-    value: totalSavings,
-  },
-  {
-    name: "You need another",
-    value: shortfall,
-  }
-]
+  const data02 = [
+    {
+      name: "Your current savings",
+      value: totalSavings,
+    },
+    {
+      name: "You need another",
+      value: shortfall,
+    },
+  ];
 
-const CustomTooltip1 = ({ active, payload }) => {
-  if (active) {
-    const data = payload[0].payload;
-    return (
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: "5px",
-          border: "1px solid #ccc",
-        }}>
-        <p>{data.ticker}</p>
-        <p>Total Spent: {data.totalSpent}</p>
-        <p>Shares Owned: {data.totalQuantity}</p>
-      </div>
-    );
-  }
-  return null;
-};
+  const CustomTooltip1 = ({ active }) => {
+    if (active) {
+      return (
+        <div
+          style={{
+            backgroundColor: "#fff",
+            padding: "5px",
+            border: "1px solid #ccc",
+          }}
+        >
+          <p>
+            Keep for emergencies: S$
+            {totalEmergencyFund.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
+          <p>
+            Optimise: S$
+            {Math.abs(shortfall).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
-const CustomTooltip2 = ({ active, payload }) => {
-  if (active) {
-    const data = payload[0].payload;
-    return (
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: "5px",
-          border: "1px solid #ccc",
-        }}>
-        <p>{data.ticker}</p>
-        <p>Total Spent: {data.totalSpent}</p>
-        <p>Shares Owned: {data.totalQuantity}</p>
-      </div>
-    );
-  }
-  return null;
-};
+  const CustomTooltip2 = ({ active }) => {
+    if (active) {
+      return (
+        <div
+          style={{
+            backgroundColor: "#fff",
+            padding: "5px",
+            border: "1px solid #ccc",
+          }}
+        >
+          <p>
+            Your current savings: S$
+            {totalSavings.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
+          <p>
+            You need another: S$
+            {shortfall.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <>
@@ -90,10 +112,16 @@ const CustomTooltip2 = ({ active, payload }) => {
             cy="50%"
             innerRadius={100}
             outerRadius={120}
-            fill="#82ca9d"
             label
-          />
-          <Tooltip content={<CustomTooltip />} />
+          >
+            {data01.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={colors1[index % colors1.length]}
+              />
+            ))}
+          </Pie>
+          <Tooltip content={<CustomTooltip1 />} />
         </PieChart>
       ) : (
         <PieChart width={700} height={350}>
@@ -101,7 +129,8 @@ const CustomTooltip2 = ({ active, payload }) => {
             Ideal emergency funds
           </text>
           <text x={350} y={185} textAnchor="middle" dominantBaseline="middle">
-            S${totalEmergencyFund.toLocaleString(undefined, {
+            S$
+            {totalEmergencyFund.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
@@ -114,15 +143,18 @@ const CustomTooltip2 = ({ active, payload }) => {
             cy="50%"
             innerRadius={100}
             outerRadius={120}
-            fill="#82ca9d"
-            label>
-              {data02.map((entry, index) => (
-					<Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-				))}
-            </Pie>
+            label
+          >
+            {data02.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={colors2[index % colors2.length]}
+              />
+            ))}
+          </Pie>
           <Tooltip content={<CustomTooltip2 />} />
         </PieChart>
       )}
     </>
   );
-} 
+}

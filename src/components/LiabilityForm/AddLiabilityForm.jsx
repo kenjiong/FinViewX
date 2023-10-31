@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as liabilitiesService from "../../utilities/liabilities-service";
 
-export default function AddLiabilityForm({ fetchLiabilities, setShowLiabilityForm }) {
+export default function AddLiabilityForm({
+  liabilities,
+  fetchLiabilities,
+  setShowLiabilityForm,
+}) {
   const [liability, setLiability] = useState({
     type: "",
     name: "",
@@ -18,8 +22,14 @@ export default function AddLiabilityForm({ fetchLiabilities, setShowLiabilityFor
 
   async function handleSubmit(event) {
     event.preventDefault();
+    for (let i = 0; i < liabilities.length; i++) {
+      if (liabilities[i].name === liability.name) {
+        setError("You have already added this liability");
+        return;
+      }
+    }
     try {
-      const updatedUser = await liabilitiesService.createLiability(liability);
+      await liabilitiesService.createLiability(liability);
       fetchLiabilities();
       setLiability({
         type: "",
@@ -71,8 +81,10 @@ export default function AddLiabilityForm({ fetchLiabilities, setShowLiabilityFor
             onChange={handleChange}
             required
           />
-          <button type="submit">Add Liability</button>{" "}|{" "}
-          <button type="button" onClick={()=>setShowLiabilityForm(false)}>Back</button>
+          <button type="submit">Add Liability</button> |{" "}
+          <button type="button" onClick={() => setShowLiabilityForm(false)}>
+            Back
+          </button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>

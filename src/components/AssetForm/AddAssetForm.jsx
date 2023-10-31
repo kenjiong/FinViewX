@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as assetsService from "../../utilities/assets-service";
 
-export default function AddAssetForm({ fetchAssets, setShowAssetForm }) {
+export default function AddAssetForm({
+  assets,
+  fetchAssets,
+  setShowAssetForm,
+}) {
   const [asset, setAsset] = useState({
     type: "",
     name: "",
@@ -18,8 +22,14 @@ export default function AddAssetForm({ fetchAssets, setShowAssetForm }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    for (let i = 0; i < assets.length; i++) {
+      if (assets[i].name === asset.name) {
+        setError("You have already added this asset")
+        return;
+      }
+    }
     try {
-      const updatedUser = await assetsService.createAsset(asset);
+      await assetsService.createAsset(asset);
       fetchAssets();
       setAsset({
         type: "",
@@ -39,7 +49,13 @@ export default function AddAssetForm({ fetchAssets, setShowAssetForm }) {
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label for="type-select">Type</label>
-          <select name="type" value={asset.type} id="type-select" onChange={handleChange} required>
+          <select
+            name="type"
+            value={asset.type}
+            id="type-select"
+            onChange={handleChange}
+            required
+          >
             <option value="">Please choose the type of asset</option>
             <option value="cash">Cash</option>
             <option value="investment">Cash Investment</option>
@@ -53,7 +69,12 @@ export default function AddAssetForm({ fetchAssets, setShowAssetForm }) {
           <label>Asset Name</label>
           {asset.type === "cpf" ? (
             <>
-              <select name="name" value={asset.name} onChange={handleChange} required>
+              <select
+                name="name"
+                value={asset.name}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Please choose the CPF account</option>
                 <option value="OA">OA</option>
                 <option value="SA">SA</option>
@@ -83,8 +104,10 @@ export default function AddAssetForm({ fetchAssets, setShowAssetForm }) {
             onChange={handleChange}
             required
           />
-          <button type="submit">Add Asset</button>{" "}|{" "}
-          <button type="button" onClick={()=>setShowAssetForm(false)}>Back</button>
+          <button type="submit">Add Asset</button> |{" "}
+          <button type="button" onClick={() => setShowAssetForm(false)}>
+            Back
+          </button>
         </form>
       </div>
       <p className="error-message">&nbsp;{error}</p>
