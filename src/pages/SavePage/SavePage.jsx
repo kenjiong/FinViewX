@@ -57,10 +57,14 @@ export default function SavePage({ user }) {
         savings[0]?.monthlyExpenses ? (
           <>
             <div>
-              <SavingsChart />
+              <SavingsChart totalSavings={totalSavings} totalEmergencyFund={totalEmergencyFund} shortfall={shortfall}/>
             </div>
             <div>
-              <p>
+              {shortfall < 0 ? (
+                <p>You've met your ideal emergency fund</p>
+              ) : (
+                <>
+                <p>
                 Your current savings: S$
                 {totalSavings.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
@@ -68,9 +72,6 @@ export default function SavePage({ user }) {
                 })}
               </p>
               <br />
-              {shortfall < 0 ? (
-                <p>Congratulations! You have sufficient emergency funds!</p>
-              ) : (
                 <p>
                   You need another: S$
                   {shortfall.toLocaleString(undefined, {
@@ -78,8 +79,10 @@ export default function SavePage({ user }) {
                     maximumFractionDigits: 2,
                   })}
                 </p>
+                </>
               )}
             </div>
+            <br />
             <div>
               <Link to="/save/form">
                 <button>
