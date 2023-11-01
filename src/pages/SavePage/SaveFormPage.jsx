@@ -1,32 +1,19 @@
-import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SetEmergencyFundForm from "../../components/SavingsForm/SetEmergencyFundForm";
 import EditEmergencyFundForm from "../../components/SavingsForm/EditEmergencyFundForm";
-import * as savingsService from "../../utilities/savings-service";
 import debug from "debug";
 
 const log = debug("finviewx:src:SavePage");
 
-export default function SaveFormPage({ user }) {
-  const [savings, setSavings] = useState([]);
-  const userId = user._id;
-
-  useEffect(() => {
-    const fetchSavings = async () => {
-      try {
-        const data = await savingsService.getEmergencyFund(userId);
-        setSavings(data);
-      } catch (error) {
-        log(error);
-      }
-    };
-    fetchSavings();
-  }, [userId]);
+export default function SaveFormPage() {
+  const location = useLocation();
+  const { savings } = location.state;
 
   return (
     <>
-      {savings[0]?.monthlyExpenses ? (
+      {savings?.monthlyExpenses ? (
         <>
-          <EditEmergencyFundForm savings={savings[0]} setSavings={setSavings}/>
+          <EditEmergencyFundForm savings={savings}/>
         </>
       ) : (
         <>

@@ -39,6 +39,5 @@ export async function checkToken() {
 export async function updateTier(newTier, userId) {
   const updatedTier = { tier: newTier };
   const data = await usersAPI.updateTier(updatedTier, userId);
-  log(data);
   return data;
 }

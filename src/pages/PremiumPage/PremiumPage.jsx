@@ -15,6 +15,7 @@ export default function PremiumPage({ user }) {
       await usersService.updateTier(newTier, userId);
       navigate("/dashboard");
     } catch (error) {
+      // get new token
       log(error);
     }
   };

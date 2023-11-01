@@ -41,7 +41,7 @@ const editLiability = async (req, res) => {
 const deleteLiability = async (req, res) => {
   const { liabilityId } = req.params;
   const liability = await Liability.findByIdAndDelete(liabilityId);
-  res.status(204).json({ liability });
+  res.status(200).json({ liability });
 };
 
 module.exports = {

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button, Form } from "react-daisyui";
 import AddAssetForm from "../../components/AssetForm/AddAssetForm";
 import AddLiabilityForm from "../../components/LiabilityForm/AddLiabilityForm";
 import EditAssetForm from "../../components/AssetForm/EditAssetForm";
@@ -52,9 +54,12 @@ export default function DashboardPage({ user }) {
   const handleDeleteAsset = async (event) => {
     const assetId = event.currentTarget.getAttribute("assetId");
     try {
+      console.log("asset2", assetId);
       await assetsService.deleteAsset(assetId);
-      fetchAssets();
+      console.log(assetId);
+      await fetchAssets();
     } catch (error) {
+      console.log(error);
       log(error);
     }
   };
@@ -141,19 +146,12 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-asset")
-                                    .showModal()
-                                }
-                              >
+                              <Link to="/asset/edit" state={{asset: asset}}>
+                              <Button>
                                 Edit Asset
-                              </button>
-                              <EditAssetForm
-                                asset={asset}
-                                fetchAssets={fetchAssets}
-                              />{" "}
+                              </Button>
+                              </Link>
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteAsset}
@@ -181,19 +179,12 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-liability")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/liability/edit" state={{liability: liability}}>
+                              <Button>
                                 Edit Liability
-                              </button>
-                              <EditLiabilityForm
-                                liability={liability}
-                                fetchLiabilities={fetchLiabilities}
-                              />{" "}
+                              </Button>
+                              </Link>
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteLiability}
@@ -224,15 +215,11 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-asset")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/asset/edit" state={{asset: asset}}>
+                              <Button>
                                 Edit Asset
-                              </button>
+                              </Button>
+                              </Link>
                               <EditAssetForm
                                 asset={asset}
                                 fetchAssets={fetchAssets}
@@ -264,19 +251,12 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-liability")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/liability/edit" state={{liability: liability}}>
+                              <Button>
                                 Edit Liability
-                              </button>
-                              <EditLiabilityForm
-                                liability={liability}
-                                fetchLiabilities={fetchLiabilities}
-                              />{" "}
+                              </Button>
+                              </Link>
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteLiability}
@@ -307,19 +287,11 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-asset")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/asset/edit" state={{asset: asset}}>
+                              <Button>
                                 Edit Asset
-                              </button>
-                              <EditAssetForm
-                                asset={asset}
-                                fetchAssets={fetchAssets}
-                              />{" "}
+                              </Button>
+                              </Link>{" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteAsset}
@@ -347,19 +319,12 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-liability")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/liability/edit" state={{liability: liability}}>
+                              <Button>
                                 Edit Liability
-                              </button>
-                              <EditLiabilityForm
-                                liability={liability}
-                                fetchLiabilities={fetchLiabilities}
-                              />{" "}
+                              </Button>
+                              </Link>
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteLiability}
@@ -390,19 +355,11 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-asset")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/asset/edit" state={{asset: asset}}>
+                              <Button>
                                 Edit Asset
-                              </button>
-                              <EditAssetForm
-                                asset={asset}
-                                fetchAssets={fetchAssets}
-                              />{" "}
+                              </Button>
+                              </Link>{" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteAsset}
@@ -434,19 +391,12 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-asset")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/asset/edit" state={{asset: asset}}>
+                              <Button>
                                 Edit Asset
-                              </button>
-                              <EditAssetForm
-                                asset={asset}
-                                fetchAssets={fetchAssets}
-                              />{" "}
+                              </Button>
+                              </Link>
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteAsset}
@@ -478,19 +428,12 @@ export default function DashboardPage({ user }) {
                             })}`}</span>
                             &nbsp;&nbsp;
                             <span>
-                              <button
-                                onClick={() =>
-                                  document
-                                    .getElementById("edit-asset")
-                                    .showModal()
-                                }
-                              >
+                            <Link to="/asset/edit" state={{asset: asset}}>
+                              <Button>
                                 Edit Asset
-                              </button>
-                              <EditAssetForm
-                                asset={asset}
-                                fetchAssets={fetchAssets}
-                              />{" "}
+                              </Button>
+                              </Link>
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteAsset}

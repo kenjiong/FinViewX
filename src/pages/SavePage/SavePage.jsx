@@ -87,7 +87,7 @@ export default function SavePage({ user }) {
             </div>
             <br />
             <div>
-              <Link to="/save/form">
+              <Link to="/save/form" state={{ savings: savings[0] }}>
                 <button>
                   Click here to set or edit your ideal emergency fund
                 </button>
@@ -106,7 +106,7 @@ export default function SavePage({ user }) {
               </p>
             </div>
             <div>
-              <Link to="/save/form">
+              <Link to="/save/form" state={{ savings: savings[0] }}>
                 <button>
                   Click here to set or edit your ideal emergency fund
                 </button>

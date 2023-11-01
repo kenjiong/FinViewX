@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-daisyui";
 import * as retirementService from "../../utilities/retirement-service";
 import debug from "debug";
 
 const log = debug("finviewx:src:RetirementForm");
 
-export default function EditRetirementGoalForm({ retirement, setRetirement }) {
+export default function EditRetirementGoalForm({ retirement }) {
   const [retirementAge, setRetirementAge] = useState(
     retirement.retirementAge
   );
@@ -23,8 +24,7 @@ export default function EditRetirementGoalForm({ retirement, setRetirement }) {
       monthlyExpenses,
     };
     try {
-      const updatedRetirement = await retirementService.editRetirementGoal(retirement, retirementId);
-      setRetirement(updatedRetirement);
+      await retirementService.editRetirementGoal(retirement, retirementId);
       navigate("/retire");
     } catch (error) {
       setError("Failed to edit retirement goal - Try again");
@@ -72,7 +72,8 @@ export default function EditRetirementGoalForm({ retirement, setRetirement }) {
             required
           />
           <br />
-        <button type="submit" className="btn">Edit Your Retirement Goal</button>
+          <Button type="button" onClick={()=>navigate("/retire")}>Back</Button>
+        <Button type="submit">Edit Your Retirement Goal</Button>
       </form>
     </div>
     <p className="error-message">&nbsp;{error}</p>

@@ -4,6 +4,8 @@ import LandingPage from "../LandingPage/LandingPage";
 import AuthPage from "../AuthPage/AuthPage";
 import NavBar from "../../components/NavBar/NavBar";
 import DashboardPage from "../DashboardPage/DashboardPage";
+import EditAssetPage from "../EditAssetPage/EditAssetPage";
+import EditLiabilityPage from "../EditLiabilityPage/EditLiabilityPage";
 import SavePage from "../SavePage/SavePage";
 import SaveFormPage from "../SavePage/SaveFormPage";
 import RetirePage from "../RetirePage/RetirePage";
@@ -30,13 +32,12 @@ function App() {
                 path="/dashboard"
                 element={<DashboardPage user={user} />}
               />
+              <Route path="/asset/edit" element={<EditAssetPage />} />
+              <Route path="/liability/edit" element={<EditLiabilityPage />} />
               <Route path="/save" element={<SavePage user={user} />} />
-              <Route path="/save/form" element={<SaveFormPage user={user} />} />
+              <Route path="/save/form" element={<SaveFormPage />} />
               <Route path="/retire" element={<RetirePage user={user} />} />
-              <Route
-                path="/retire/form"
-                element={<RetireFormPage user={user} />}
-              />
+              <Route path="/retire/form" element={<RetireFormPage />} />
               <Route
                 path="/premium"
                 element={<PremiumPage user={user} setUser={setUser} />}

@@ -1,32 +1,21 @@
-import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SetRetirementGoalForm from "../../components/RetirementForm/SetRetirementGoalForm";
 import EditRetirementGoalForm from "../../components/RetirementForm/EditRetirementGoalForm";
-import * as retirementService from "../../utilities/retirement-service";
 import debug from "debug";
 
 const log = debug("finviewx:src:RetirePage");
 
-export default function RetireFormPage({ user }) {
-  const [retirement, setRetirement] = useState([]);
-  const userId = user._id;
-
-  useEffect(() => {
-    const fetchRetirement = async () => {
-      try {
-        const data = await retirementService.getRetirementGoal(userId);
-        setRetirement(data);
-      } catch (error) {
-        log(error);
-      }
-    };
-    fetchRetirement();
-  }, [userId]);
+export default function RetireFormPage() {
+  const location = useLocation();
+  const { retirement } = location.state
 
   return (
     <>
-      {retirement[0]?.monthlyExpenses ? (
+      {retirement?.monthlyExpenses ? (
         <>
-          <EditRetirementGoalForm retirement={retirement[0]} setRetirement={setRetirement}/>
+          <EditRetirementGoalForm
+            retirement={retirement}
+          />
         </>
       ) : (
         <>

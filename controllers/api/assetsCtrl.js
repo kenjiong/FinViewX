@@ -41,7 +41,7 @@ const editAsset = async (req, res) => {
 const deleteAsset = async (req, res) => {
   const { assetId } = req.params;
   const asset = await Asset.findByIdAndDelete(assetId);
-  res.status(204).json({ asset });
+  res.status(200).json({ asset });
 };
 
 module.exports = {
