@@ -1,31 +1,33 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as savingsService from "../../utilities/savings-service";
+import * as retirementService from "../../utilities/retirement-service";
 import debug from "debug";
 
-const log = debug("finviewx:src:SavingsForm");
+const log = debug("finviewx:src:RetirementForm");
 
-export default function EditRetirementGoalForm({ savings, setSavings }) {
-  const [monthlyExpenses, setMonthlyExpenses] = useState(
-    savings.monthlyExpenses
+export default function EditRetirementGoalForm({ retirement, setRetirement }) {
+  const [retirementAge, setRetirementAge] = useState(
+    retirement.retirementAge
   );
-  const [months, setMonths] = useState(savings.months);
+  const [lifeExpectancy, setLifeExpectancy] = useState(retirement.lifeExpectancy);
+  const [monthlyExpenses, setMonthlyExpenses] = useState(retirement.monthlyExpenses);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const savingsId = savings._id;
+  const retirementId = retirement._id;
 
   async function handleEdit(event) {
     event.preventDefault();
-    const savings = {
+    const retirement = {
+      retirementAge,
+      lifeExpectancy,
       monthlyExpenses,
-      months,
     };
     try {
-      const updatedSavings = await savingsService.editEmergencyFund(savings, savingsId);
-      setSavings(updatedSavings);
-      navigate("/save");
+      const updatedRetirement = await retirementService.editRetirementGoal(retirement, retirementId);
+      setRetirement(updatedRetirement);
+      navigate("/retire");
     } catch (error) {
-      setError("Failed to edit emergency fund - Try again");
+      setError("Failed to edit retirement goal - Try again");
     }
   }
 
@@ -34,27 +36,43 @@ export default function EditRetirementGoalForm({ savings, setSavings }) {
     <h3>Edit Emergency Fund</h3>
     <div className="form-container">
       <form autoComplete="off" onSubmit={handleEdit}>
-        <label>Estimated Monthly Expenses</label>
-        <input
-          type="number"
-          name="monthlyExpenses"
-          step=".01"
-          value={monthlyExpenses}
-          min="0"
-          onChange={(event) => setMonthlyExpenses(event.target.value)}
-          required
-        />
-        <label>No. of months</label>
-        <input
-          type="number"
-          name="months"
-          value={months}
-          min="1"
-          onChange={(event) => setMonths(event.target.value)}
-          required
-        />
-        <small>Recommended: 3-6 months</small>
-        <button type="submit">Edit Your Emergency Fund</button>
+      <label>Your ideal retirement age</label>
+          <input
+            type="number"
+            name="retirementAge"
+            value={retirementAge}
+            placeholder="Age"
+            min="1"
+            onChange={(event) => setRetirementAge(event.target.value)}
+            required
+          /><br />
+          <small>The minimum retirement age in Singapore is 63</small>
+          <br />
+          <label>Your live till age</label>
+          <input
+            type="number"
+            name="lifeExpectancy"
+            value={lifeExpectancy}
+            placeholder="Age"
+            min="1"
+            onChange={(event) => setLifeExpectancy(event.target.value)}
+            required
+          /><br />
+          <small>The average life expectancy in Singapore is 83.9 years</small>
+          <br />
+          <label>Estimated monthly expenses after retirement</label>
+          <input
+            type="number"
+            name="monthlyExpenses"
+            step=".01"
+            value={monthlyExpenses}
+            placeholder="1,500"
+            min="0"
+            onChange={(event) => setMonthlyExpenses(event.target.value)}
+            required
+          />
+          <br />
+        <button type="submit" className="btn">Edit Your Retirement Goal</button>
       </form>
     </div>
     <p className="error-message">&nbsp;{error}</p>

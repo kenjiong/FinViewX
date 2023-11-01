@@ -26,7 +26,7 @@ export default function RetireFormPage({ user }) {
     <>
       {retirement[0]?.monthlyExpenses ? (
         <>
-          <EditRetirementGoalForm />
+          <EditRetirementGoalForm retirement={retirement[0]} setRetirement={setRetirement}/>
         </>
       ) : (
         <>

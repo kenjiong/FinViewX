@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import * as retirementService from "../../utilities/retirement-service";
 
 export default function SetRetirementGoalForm() {
@@ -11,6 +12,8 @@ export default function SetRetirementGoalForm() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const today = moment().format().split('T')[0];
 
   function handleChange(event) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -44,8 +47,10 @@ export default function SetRetirementGoalForm() {
             name="birthDate"
             value={formData.birthDate}
             onChange={handleChange}
+            max={today}
             required
-          />
+          /><br />
+          <small>*Your birth date cannot be modified after setting</small>
           <br />
           <label>Your ideal retirement age</label>
           <input

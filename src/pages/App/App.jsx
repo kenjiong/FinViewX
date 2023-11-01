@@ -28,12 +28,15 @@ function App() {
               <Route path="/" element={<Navigate to="/dashboard" />} />
               <Route
                 path="/dashboard"
-                element={<DashboardPage user={user} setUser={setUser} />}
+                element={<DashboardPage user={user} />}
               />
               <Route path="/save" element={<SavePage user={user} />} />
               <Route path="/save/form" element={<SaveFormPage user={user} />} />
               <Route path="/retire" element={<RetirePage user={user} />} />
-              <Route path="/retire/form" element={<RetireFormPage user={user}/>} />
+              <Route
+                path="/retire/form"
+                element={<RetireFormPage user={user} />}
+              />
               <Route
                 path="/premium"
                 element={<PremiumPage user={user} setUser={setUser} />}
@@ -43,7 +46,16 @@ function App() {
         ) : (
           <Routes>
             <Route path="/" element={<LandingPage />} />
-              <Route path="*" element={<span><h3>Something went wrong. Click</h3><Link to="/">here</Link><h3>to return</h3></span>} />
+            <Route
+              path="*"
+              element={
+                <span>
+                  <h3>Something went wrong. Click</h3>
+                  <Link to="/">here</Link>
+                  <h3>to return</h3>
+                </span>
+              }
+            />
             <Route path="/auth" element={<AuthPage setUser={setUser} />} />
           </Routes>
         )}

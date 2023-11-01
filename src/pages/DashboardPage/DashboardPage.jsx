@@ -9,7 +9,7 @@ import debug from "debug";
 
 const log = debug("finviewx:src:DashboardPage");
 
-export default function DashboardPage({ user, setUser }) {
+export default function DashboardPage({ user }) {
   const [assets, setAssets] = useState([]);
   const [liabilities, setLiabilities] = useState([]);
   const [showAssetForm, setShowAssetForm] = useState(false);

@@ -8,7 +8,6 @@ export default function EditAssetForm({ asset, fetchAssets }) {
   const [name, setName] = useState(asset.name);
   const [value, setValue] = useState(asset.value);
   const assetId = asset._id;
-  log(asset);
 
   const handleEdit = async () => {
     const asset = {

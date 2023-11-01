@@ -54,7 +54,20 @@ export default function RetirePage({ user }) {
     .filter((asset) => asset.type === "cpf")
     .filter((asset) => asset.name === "SA")[0]?.value;
   const currentAge = calculateAge(retirement[0]?.birthDate);
-  const shortfall = 0;
+  const getCPFBalance = (age, retireAge) => {
+    let cpfBalance;
+    if (age > 54) {
+      cpfBalance = (currentOA + currentSA) * (1.04 ^ (retireAge - age));
+      return cpfBalance;
+    } else {
+      cpfBalance =
+        (currentOA * (1.025 ^ (55 - age)) + currentSA * (1.04 ^ (55 - age))) *
+        (1.04 ^ (retireAge - 55));
+      return cpfBalance;
+    }
+  };
+  const totalExpenses = retirement[0]?.monthlyExpenses * 12 * (retirement[0]?.lifeExpectancy - retirement[0]?.retirementAge);
+  const shortfall = totalExpenses - getCPFBalance(currentAge, retirement[0]?.retirementAge);
 
   return (
     <>
@@ -90,51 +103,77 @@ export default function RetirePage({ user }) {
             <br />
             <div>
               <span>
-              <RetirementChart />
+                <RetirementChart />
               </span>
-            <span>
-            {shortfall < 0 ? (
-              <p>You've met your retirement goal!</p>
-            ) : (
+              <span>
+                {shortfall < 0 ? (
+                  <p>You've met your retirement goal!</p>
+                ) : (
+                  <p>
+                    You need S$
+                    {shortfall.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}{" "}
+                    more to achieve your retirement goal.
+                  </p>
+                )}
+              </span>
+            </div>
+            <div>
               <p>
-                You need S$
-                {shortfall.toLocaleString(undefined, {
+                You currently have S$
+                {currentOA?.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                })} more in your CPF to achieve your retirement goal.
+                })}{" "}
+                in your CPF OA and S$
+                {currentSA?.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                in your CPF SA.
               </p>
-            )}
-            </span>
-          </div>
-          <div>
-            <p>You currently have S${currentOA.toLocaleString(undefined, {
+              <p>
+                Your CPF balance is projected to be S$
+                {getCPFBalance(currentAge, retirement[0]?.retirementAge)?.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                })} in your CPF OA and S${currentSA.toLocaleString(undefined, {
+                })}{" "}
+                at your intended retirement age of{" "}
+                {retirement[0]?.retirementAge}.
+              </p>
+              <p>
+                Your total estimated retirement expenses until age{" "}
+                {retirement[0]?.lifeExpectancy} is S$
+                {totalExpenses.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                })} in your CPF SA.</p>
-            <p>Your CPF balance is projected to be S${} at age 65 when you will start receiving CPF Life payouts.</p>
-            <p>You have a S${} shortfall, which can be made up with an average monthly income of S${} until your intended retirement at age {retirement[0]?.retirementAge}</p>
-          </div>
+                })}.
+              </p>
+            </div>
           </>
         ) : (
           <>
             <div>
               <span>You have not set a retirement goal yet!</span>
               <br />
-              { currentOA && currentSA ? (
-              <span>
-                <Link to="/retire/form">
-                  <button>Set Retirement Goal</button>
-                </Link>
-              </span>
+              {currentOA && currentSA ? (
+                <span>
+                  <Link to="/retire/form">
+                    <button>Set Retirement Goal</button>
+                  </Link>
+                </span>
               ) : (
-              <span>Please enter both your CPF OA and SA values in your dashboard before you are able to set your retirement goal</span>
+                <span>
+                  Please enter both your CPF OA and SA values in your dashboard
+                  before you are able to set your retirement goal
+                </span>
               )}
             </div>
           </>
-      )) : (
+        )
+      ) : (
         <div>
           <h2>Something went wrong.</h2>
         </div>
