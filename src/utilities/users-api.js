@@ -13,6 +13,6 @@ export function checkToken() {
   return sendRequest(`${BASE_URL}/check-token`);
 }
 
-export function updateTier(updatedTier, userId) {
-  return sendRequest(`${BASE_URL}/${userId}`, "PATCH", updatedTier);
+export function updateTier(updatedUser, userId) {
+  return sendRequest(`${BASE_URL}/${userId}`, "PATCH", updatedUser);
 }

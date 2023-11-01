@@ -36,8 +36,7 @@ export async function checkToken() {
   return date;
 }
 
-export async function updateTier(newTier, userId) {
-  const updatedTier = { tier: newTier };
-  const data = await usersAPI.updateTier(updatedTier, userId);
-  return data;
+export async function updateTier(updatedUser, userId) {
+  const token = await usersAPI.updateTier(updatedUser, userId);
+  return token;
 }

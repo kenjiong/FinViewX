@@ -35,11 +35,12 @@ function checkToken(req, res) {
 async function updateTier(req, res) {
   try {
   const user = await User.findOne({ _id: req.user._id });
-  const { tier } = req.body;
-  user.tier = tier;
+  const { newUser } = req.body;
+  user = newUser;
 
-  await user.save();
-  res.status(200).json({ message: "Premium subscription successful" });
+  const updatedUser = await user.save();
+  const token = createJWT(updatedUser);
+  res.status(200).json({ token, message: "Premium subscription successful" });
   } catch (error) {
     res.status(500).json({ error: "Premium subscription unsuccessful" });
   }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as usersService from "../../utilities/users-service";
 import debug from "debug";
@@ -5,14 +6,18 @@ import debug from "debug";
 const log = debug("finviewx:src:PremiumPage");
 
 export default function PremiumPage({ user }) {
+  const [updatedUser, setUpdatedUser] = useState(user)
   const navigate = useNavigate();
   const userId = user._id;
 
+  console.log(updatedUser);
+
   const handleUpdateTier = async (event) => {
     event.preventDefault();
-    const newTier = "premium";
+    const newTier = {...user, tier: "premium"};
     try {
       await usersService.updateTier(newTier, userId);
+      localStorage.setItem("token", user.token);
       navigate("/dashboard");
     } catch (error) {
       // get new token

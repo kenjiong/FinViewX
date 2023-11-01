@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Button, Form } from "react-daisyui";
 import AddAssetForm from "../../components/AssetForm/AddAssetForm";
 import AddLiabilityForm from "../../components/LiabilityForm/AddLiabilityForm";
-import EditAssetForm from "../../components/AssetForm/EditAssetForm";
-import EditLiabilityForm from "../../components/LiabilityForm/EditLiabilityForm";
 import * as assetsService from "../../utilities/assets-service";
 import * as liabilitiesService from "../../utilities/liabilities-service";
 import debug from "debug";
@@ -54,9 +52,7 @@ export default function DashboardPage({ user }) {
   const handleDeleteAsset = async (event) => {
     const assetId = event.currentTarget.getAttribute("assetId");
     try {
-      console.log("asset2", assetId);
       await assetsService.deleteAsset(assetId);
-      console.log(assetId);
       await fetchAssets();
     } catch (error) {
       console.log(error);
@@ -138,12 +134,12 @@ export default function DashboardPage({ user }) {
                         .filter((asset) => asset.type === "cash")
                         .map((asset) => (
                           <>
-                            <span key={asset._id}>{`${
+                            <p key={asset._id}>{`${
                               asset.name
                             } - S$${asset.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                               <Link to="/asset/edit" state={{asset: asset}}>
@@ -171,12 +167,12 @@ export default function DashboardPage({ user }) {
                         .filter((liability) => liability.type === "creditcard")
                         .map((liability) => (
                           <>
-                            <span key={liability._id}>{`${
+                            <p key={liability._id}>{`${
                               liability.name
                             } - S$${liability.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/liability/edit" state={{liability: liability}}>
@@ -198,7 +194,6 @@ export default function DashboardPage({ user }) {
                         ))}
                     </td>
                   </tr>
-                  <br />
                   <tr>
                     <td>
                       <span className="font-bold">Cash Investments</span>
@@ -207,12 +202,12 @@ export default function DashboardPage({ user }) {
                         .filter((asset) => asset.type === "investment")
                         .map((asset) => (
                           <>
-                            <span key={asset._id}>{`${
+                            <p key={asset._id}>{`${
                               asset.name
                             } - S$${asset.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/asset/edit" state={{asset: asset}}>
@@ -220,10 +215,7 @@ export default function DashboardPage({ user }) {
                                 Edit Asset
                               </Button>
                               </Link>
-                              <EditAssetForm
-                                asset={asset}
-                                fetchAssets={fetchAssets}
-                              />{" "}
+                              {" "}
                               |{" "}
                               <button
                                 onClick={handleDeleteAsset}
@@ -243,12 +235,12 @@ export default function DashboardPage({ user }) {
                         .filter((liability) => liability.type === "loan")
                         .map((liability) => (
                           <>
-                            <span key={liability._id}>{`${
+                            <p key={liability._id}>{`${
                               liability.name
                             } - S$${liability.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/liability/edit" state={{liability: liability}}>
@@ -270,7 +262,6 @@ export default function DashboardPage({ user }) {
                         ))}
                     </td>
                   </tr>
-                  <br />
                   <tr>
                     <td>
                       <span className="font-bold">CPF</span>
@@ -279,12 +270,12 @@ export default function DashboardPage({ user }) {
                         .filter((asset) => asset.type === "cpf")
                         .map((asset) => (
                           <>
-                            <span key={asset._id}>{`${
+                            <p key={asset._id}>{`${
                               asset.name
                             } - S$${asset.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/asset/edit" state={{asset: asset}}>
@@ -311,12 +302,12 @@ export default function DashboardPage({ user }) {
                         .filter((liability) => liability.type === "other")
                         .map((liability) => (
                           <>
-                            <span key={liability._id}>{`${
+                            <p key={liability._id}>{`${
                               liability.name
                             } - S$${liability.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/liability/edit" state={{liability: liability}}>
@@ -338,7 +329,6 @@ export default function DashboardPage({ user }) {
                         ))}
                     </td>
                   </tr>
-                  <br />
                   <tr>
                     <td>
                       <span className="font-bold">{`Insurance (Protection with cash value)`}</span>
@@ -347,12 +337,12 @@ export default function DashboardPage({ user }) {
                         .filter((asset) => asset.type === "insurance")
                         .map((asset) => (
                           <>
-                            <span key={asset._id}>{`${
+                            <p key={asset._id}>{`${
                               asset.name
                             } - S$${asset.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/asset/edit" state={{asset: asset}}>
@@ -374,7 +364,6 @@ export default function DashboardPage({ user }) {
                     </td>
                     <td>&nbsp;</td>
                   </tr>
-                  <br />
                   <tr>
                     <td>
                       <span className="font-bold">Properties</span>
@@ -383,12 +372,12 @@ export default function DashboardPage({ user }) {
                         .filter((asset) => asset.type === "property")
                         .map((asset) => (
                           <>
-                            <span key={asset._id}>{`${
+                            <p key={asset._id}>{`${
                               asset.name
                             } - S$${asset.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/asset/edit" state={{asset: asset}}>
@@ -411,7 +400,6 @@ export default function DashboardPage({ user }) {
                     </td>
                     <td>&nbsp;</td>
                   </tr>
-                  <br />
                   <tr>
                     <td>
                       <span className="font-bold">Others</span>
@@ -420,12 +408,12 @@ export default function DashboardPage({ user }) {
                         .filter((asset) => asset.type === "other")
                         .map((asset) => (
                           <>
-                            <span key={asset._id}>{`${
+                            <p key={asset._id}>{`${
                               asset.name
                             } - S$${asset.value.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
-                            })}`}</span>
+                            })}`}</p>
                             &nbsp;&nbsp;
                             <span>
                             <Link to="/asset/edit" state={{asset: asset}}>
@@ -448,7 +436,6 @@ export default function DashboardPage({ user }) {
                     </td>
                     <td>&nbsp;</td>
                   </tr>
-                  <br />
                   <tr>
                     <td>
                       <button onClick={handleShowAddAsset}>

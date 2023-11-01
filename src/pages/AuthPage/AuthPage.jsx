@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "react-daisyui";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 
@@ -17,24 +18,32 @@ export default function AuthPage({ setUser }) {
 
   const handleShowConfirm = () => {
     setShowConfirm(!showConfirm);
-  }
+  };
 
   return (
-    <main>
+    <main className="flex flex-col items-center justify-center min-h-screen">
       {show ? (
         <>
-          <h3>Log In to your FinViewX Account</h3>
-          <button onClick={handleShow}>Sign Up</button>
+          <h2 className="mb-5 text-2xl font-bold text-accent">
+            Log In to your FinViewX Account
+          </h2>
+          <br />
           <LoginForm
             setUser={setUser}
             showPassword={showPassword}
             handleShowPassword={handleShowPassword}
           />
+          Don't have a FinViewX account?{" "}
+          <Button onClick={handleShow} color="secondary">
+            Sign Up Here
+          </Button>
         </>
       ) : (
         <>
-          <h3>Register for a FinViewX Account!</h3>
-          <button onClick={handleShow}>Login</button>
+          <h2 className="mb-5 text-2xl font-bold text-accent">
+            Register for a FinViewX Account!
+          </h2>
+          <br />
           <SignUpForm
             setUser={setUser}
             showPassword={showPassword}
@@ -42,6 +51,10 @@ export default function AuthPage({ setUser }) {
             showConfirm={showConfirm}
             handleShowConfirm={handleShowConfirm}
           />
+          Already have a FinViewX account?{" "}
+          <Button onClick={handleShow} color="secondary">
+            Login Here
+          </Button>
         </>
       )}
     </main>
