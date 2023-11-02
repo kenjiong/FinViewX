@@ -70,14 +70,14 @@ export default function SavingsChart({
             border: "1px solid #ccc",
           }}
         >
-          <p>
+          <p className="text-primary">
             Your current savings: S$
             {totalSavings.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
           </p>
-          <p>
+          <p className="text-primary">
             You need another: S$
             {shortfall.toLocaleString(undefined, {
               minimumFractionDigits: 2,
@@ -125,7 +125,7 @@ export default function SavingsChart({
         </PieChart>
       ) : (
         <PieChart width={700} height={350}>
-          <text x={350} y={165} textAnchor="middle" dominantBaseline="middle">
+          <text x={350} y={165}  style={{ fill: "white" }} textAnchor="middle" dominantBaseline="middle">
             Ideal emergency funds
           </text>
           <text x={350} y={185} textAnchor="middle" dominantBaseline="middle">

@@ -35,8 +35,7 @@ function checkToken(req, res) {
 async function updateTier(req, res) {
   try {
   const user = await User.findOne({ _id: req.user._id });
-  const { newUser } = req.body;
-  user = newUser;
+  user.tier = req.body.tier;
 
   const updatedUser = await user.save();
   const token = createJWT(updatedUser);

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "react-daisyui";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import * as usersService from "../../utilities/users-service";
 
@@ -8,7 +9,7 @@ export default function SignUpForm({
   showPassword,
   handleShowPassword,
   showConfirm,
-  handleShowConfirm
+  handleShowConfirm,
 }) {
   const [userData, setUserData] = useState({
     name: "",
@@ -19,15 +20,15 @@ export default function SignUpForm({
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  function handleChange (event) {
+  function handleChange(event) {
     setUserData({
       ...userData,
       [event.target.name]: event.target.value,
     });
     setError("");
-  };
+  }
 
-  async function handleSubmit (event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     try {
       delete userData.confirm;
@@ -38,16 +39,16 @@ export default function SignUpForm({
     } catch (error) {
       setError("Sign Up Failed - Try Again");
     }
-  };
+  }
 
   const disable = userData.password !== userData.confirm;
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Name</label>
-          <input
+    <>
+      <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <Form autoComplete="off" onSubmit={handleSubmit}>
+          <label className="label">Name</label>
+          <Input
             type="text"
             name="name"
             value={userData.name}
@@ -55,8 +56,8 @@ export default function SignUpForm({
             onChange={handleChange}
             required
           />
-          <label>Email</label>
-          <input
+          <label className="label">Email</label>
+          <Input
             type="email"
             name="email"
             value={userData.email}
@@ -64,9 +65,9 @@ export default function SignUpForm({
             onChange={handleChange}
             required
           />
-          <label>Password</label>
-          <div>
-            <input
+          <label className="label">Password</label>
+          <div className="relative">
+            <Input
               type={showPassword ? "text" : "password"}
               name="password"
               value={userData.password}
@@ -75,31 +76,40 @@ export default function SignUpForm({
               onChange={handleChange}
               required
             />
-            <button onClick={handleShowPassword}>
+            <button
+              type="button"
+              onClick={handleShowPassword}
+              className="btn-ghost text-neutral-500 font-inter font-extralight absolute inset-y-1 right-0 pr-2 flex items-center"
+            >
               {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
             </button>
           </div>
-          <label>Confirm</label>
-          <div>
-            <input
+          <label className="label">Confirm</label>
+          <div className="relative">
+            <Input
               type={showConfirm ? "text" : "password"}
               name="confirm"
               value={userData.confirm}
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               minlength="8"
               onChange={handleChange}
               required
             />
-            <button type="button" onClick={handleShowConfirm}>
+            <button
+              type="button"
+              onClick={handleShowConfirm}
+              className="btn-ghost text-neutral-500 font-inter font-extralight absolute inset-y-1 right-0 pr-2 flex items-center"
+            >
               {showConfirm ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
             </button>
           </div>
-          <button type="submit" disabled={disable}>
+          <br />
+          <Button type="submit" disabled={disable}>
             SIGN UP
-          </button>
-        </form>
+          </Button>
+        </Form>
+        <p className="error-message">&nbsp;{error}</p>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
-    </div>
+    </>
   );
 }

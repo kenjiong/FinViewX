@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+import { Form, Input, Button } from "react-daisyui";
 import * as usersService from "../../utilities/users-service";
 
 export default function LoginForm({
@@ -33,37 +34,42 @@ export default function LoginForm({
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input
+    <>
+      <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <Form autoComplete="off" onSubmit={handleSubmit}>
+          <label className="label">Email</label>
+          <Input
             type="email"
             name="email"
             value={credentials.email}
-            placeholder="Please enter your email"
+            placeholder="example@mail.com"
             onChange={handleChange}
             required
           />
-          <label>Password</label>
-          <div>
-            <input
+          <label className="label">Password</label>
+          <div className="relative">
+            <Input
               type={showPassword ? "text" : "password"}
               name="password"
               value={credentials.password}
-              placeholder="Please enter your password"
+              placeholder="Your password"
               minLength="8"
               onChange={handleChange}
               required
             />
-            <button type="button" onClick={handleShowPassword}>
+            <button
+              type="button"
+              onClick={handleShowPassword}
+              className="btn-ghost text-neutral-500 font-inter font-extralight absolute inset-y-1 right-0 pr-2 flex items-center"
+            >
               {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
             </button>
           </div>
-          <button type="submit">LOG IN</button>
-        </form>
+          <br />
+          <Button type="submit">LOG IN</Button>
+        </Form>
+        <p className="error-message">&nbsp;{error}</p>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
-    </div>
+    </>
   );
 }

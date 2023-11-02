@@ -25,16 +25,16 @@ export default function AuthPage({ setUser }) {
       {show ? (
         <>
           <h2 className="mb-5 text-2xl font-bold text-accent">
-            Log In to your FinViewX Account
+            Log in to your FinViewX Account
           </h2>
-          <br />
           <LoginForm
             setUser={setUser}
             showPassword={showPassword}
             handleShowPassword={handleShowPassword}
           />
+          <br />
           Don't have a FinViewX account?{" "}
-          <Button onClick={handleShow} color="secondary">
+          <Button onClick={handleShow} color="secondary" size="sm">
             Sign Up Here
           </Button>
         </>
@@ -43,7 +43,6 @@ export default function AuthPage({ setUser }) {
           <h2 className="mb-5 text-2xl font-bold text-accent">
             Register for a FinViewX Account!
           </h2>
-          <br />
           <SignUpForm
             setUser={setUser}
             showPassword={showPassword}
@@ -51,8 +50,9 @@ export default function AuthPage({ setUser }) {
             showConfirm={showConfirm}
             handleShowConfirm={handleShowConfirm}
           />
+          <br />
           Already have a FinViewX account?{" "}
-          <Button onClick={handleShow} color="secondary">
+          <Button onClick={handleShow} color="secondary" size="sm">
             Login Here
           </Button>
         </>

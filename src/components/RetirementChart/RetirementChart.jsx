@@ -66,7 +66,7 @@ export default function RetirementChart({
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
+      <Tooltip labelClassName="text-info"/>
       <Legend />
       <Bar dataKey="OA" stackId="a" fill="#8884d8" />
       <Bar dataKey="SA" stackId="a" fill="#82ca9d" />
@@ -88,7 +88,7 @@ export default function RetirementChart({
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis dataKey="name" />
     <YAxis />
-    <Tooltip />
+    <Tooltip labelClassName="text-primary"/>
     <Legend />
     <Bar dataKey="OA" stackId="a" fill="#8884d8" />
     <Bar dataKey="SA" stackId="a" fill="#82ca9d" />
