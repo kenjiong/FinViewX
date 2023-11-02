@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button, Select } from "react-daisyui";
 import * as assetsService from "../../utilities/assets-service";
 
 export default function AddAssetForm({
@@ -44,12 +45,12 @@ export default function AddAssetForm({
   }
 
   return (
-    <div>
-      <h3>New Asset</h3>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label for="type-select">Type</label>
-          <select
+    <div className="flex flex-col items-center mt-2">
+      <h3 className="mb-4 text-2xl font-bold text-accent">New Asset</h3>
+      <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <Form autoComplete="off" onSubmit={handleSubmit}>
+          <label className="label">Type</label>
+          <Select
             name="type"
             value={asset.type}
             id="type-select"
@@ -65,11 +66,12 @@ export default function AddAssetForm({
             </option>
             <option value="property">Property</option>
             <option value="other">Other</option>
-          </select>
-          <label>Asset Name</label>
+          </Select>
+          <br />
+          <label className="label">Asset Name</label>
           {asset.type === "cpf" ? (
             <>
-              <select
+              <Select
                 name="name"
                 value={asset.name}
                 onChange={handleChange}
@@ -79,11 +81,11 @@ export default function AddAssetForm({
                 <option value="OA">OA</option>
                 <option value="SA">SA</option>
                 <option value="MA">MA</option>
-              </select>
+              </Select>
             </>
           ) : (
             <>
-              <input
+              <Input
                 type="text"
                 name="name"
                 value={asset.name}
@@ -93,8 +95,9 @@ export default function AddAssetForm({
               />
             </>
           )}
-          <label>Asset Value</label>
-          <input
+          <br />
+          <label className="label">Asset Value</label>
+          <Input
             type="number"
             name="value"
             step=".01"
@@ -104,13 +107,14 @@ export default function AddAssetForm({
             onChange={handleChange}
             required
           />
-          <button type="submit">Add Asset</button> |{" "}
-          <button type="button" onClick={() => setShowAssetForm(false)}>
-            Back
-          </button>
-        </form>
+          <br />
+          <span className="flex justify-center">
+          <Button type="button" color="accent" onClick={() => setShowAssetForm(false)}>Back</Button>&nbsp;&nbsp;
+          <Button type="submit" color="primary">Add Asset</Button>
+          </span>
+        </Form>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
+      <p className="error-message text-error">&nbsp;{error}</p>
     </div>
   );
 }

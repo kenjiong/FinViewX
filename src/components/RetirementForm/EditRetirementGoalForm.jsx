@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-daisyui";
+import { Form, Input, Button } from "react-daisyui";
 import * as retirementService from "../../utilities/retirement-service";
 import debug from "debug";
 
@@ -32,12 +32,12 @@ export default function EditRetirementGoalForm({ retirement }) {
   }
 
   return (
-    <div>
-    <h3>Edit Emergency Fund</h3>
-    <div className="form-container">
-      <form autoComplete="off" onSubmit={handleEdit}>
-      <label>Your ideal retirement age</label>
-          <input
+    <div className="flex flex-col items-center mt-2">
+    <h2 className="mb-4 text-2xl font-bold text-accent">Edit Retirement Goal</h2>
+    <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+      <Form autoComplete="off" onSubmit={handleEdit}>
+      <label className="label">Your ideal retirement age</label>
+          <Input
             type="number"
             name="retirementAge"
             value={retirementAge}
@@ -45,11 +45,11 @@ export default function EditRetirementGoalForm({ retirement }) {
             min="1"
             onChange={(event) => setRetirementAge(event.target.value)}
             required
-          /><br />
-          <small>The minimum retirement age in Singapore is 63</small>
+          />
+          <label className="label-text-alt text-secondary">*The minimum retirement age in Singapore is 63</label>
           <br />
-          <label>Your live till age</label>
-          <input
+          <label className="label">Your live till age</label>
+          <Input
             type="number"
             name="lifeExpectancy"
             value={lifeExpectancy}
@@ -57,11 +57,11 @@ export default function EditRetirementGoalForm({ retirement }) {
             min="1"
             onChange={(event) => setLifeExpectancy(event.target.value)}
             required
-          /><br />
-          <small>The average life expectancy in Singapore is 83.9 years</small>
+          />
+          <label className="label-text-alt text-secondary">*The average life expectancy in Singapore is 83.9 years</label>
           <br />
-          <label>Estimated monthly expenses after retirement</label>
-          <input
+          <label className="label">Estimated monthly expenses after retirement</label>
+          <Input
             type="number"
             name="monthlyExpenses"
             step=".01"
@@ -72,11 +72,13 @@ export default function EditRetirementGoalForm({ retirement }) {
             required
           />
           <br />
-          <Button type="button" onClick={()=>navigate("/retire")}>Back</Button>
-        <Button type="submit">Edit Your Retirement Goal</Button>
-      </form>
+          <span className="flex justify-center">
+          <Button type="button" color="accent" onClick={()=>navigate("/retire")}>Back</Button>&nbsp;&nbsp;
+          <Button type="submit" color="primary">Edit Your Retirement Goal</Button>
+        </span>
+      </Form>
     </div>
-    <p className="error-message">&nbsp;{error}</p>
+    <p className="error-message text-error">&nbsp;{error}</p>
   </div>
   );
 }

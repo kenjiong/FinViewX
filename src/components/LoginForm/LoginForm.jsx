@@ -45,6 +45,7 @@ export default function LoginForm({
             placeholder="example@mail.com"
             onChange={handleChange}
             required
+            className="mb-2"
           />
           <label className="label">Password</label>
           <div className="relative">
@@ -68,7 +69,7 @@ export default function LoginForm({
           <br />
           <Button type="submit">LOG IN</Button>
         </Form>
-        <p className="error-message">&nbsp;{error}</p>
+        <p className="error-message text-error">&nbsp;{error}</p>
       </div>
     </>
   );

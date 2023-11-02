@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button, Select } from "react-daisyui";
 import * as liabilitiesService from "../../utilities/liabilities-service";
 
 export default function AddLiabilityForm({
@@ -44,12 +45,12 @@ export default function AddLiabilityForm({
   }
 
   return (
-    <div>
-      <h3>New Liability</h3>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label for="type-select">Type</label>
-          <select
+    <div className="flex flex-col items-center mt-2">
+      <h3 className="mb-4 text-2xl font-bold text-accent">New Liability</h3>
+      <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <Form autoComplete="off" onSubmit={handleSubmit}>
+          <label className="label">Type</label>
+          <Select
             name="type"
             value={liability.type}
             id="type-select"
@@ -60,9 +61,10 @@ export default function AddLiabilityForm({
             <option value="creditcard">Credit Card</option>
             <option value="loan">Loan</option>
             <option value="other">Other</option>
-          </select>
-          <label>Liability Name</label>
-          <input
+          </Select>
+          <br />
+          <label className="label">Liability Name</label>
+          <Input
             type="text"
             name="name"
             value={liability.name}
@@ -70,8 +72,9 @@ export default function AddLiabilityForm({
             onChange={handleChange}
             required
           />
-          <label>Liability Amount</label>
-          <input
+          <br />
+          <label className="label">Liability Amount</label>
+          <Input
             type="number"
             name="value"
             step=".01"
@@ -81,13 +84,14 @@ export default function AddLiabilityForm({
             onChange={handleChange}
             required
           />
-          <button type="submit">Add Liability</button> |{" "}
-          <button type="button" onClick={() => setShowLiabilityForm(false)}>
-            Back
-          </button>
-        </form>
+          <br />
+          <span className="flex justify-center">
+          <Button type="button" color="accent" onClick={() => setShowLiabilityForm(false)}>Back</Button>&nbsp;&nbsp;
+          <Button type="submit" color="primary">Add Liability</Button>
+          </span>
+        </Form>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
+      <p className="error-message text-error">&nbsp;{error}</p>
     </div>
   );
 }

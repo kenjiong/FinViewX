@@ -55,6 +55,7 @@ export default function SignUpForm({
             placeholder="First Last"
             onChange={handleChange}
             required
+            className="mb-2"
           />
           <label className="label">Email</label>
           <Input
@@ -64,6 +65,7 @@ export default function SignUpForm({
             placeholder="email@example.com"
             onChange={handleChange}
             required
+            className="mb-2"
           />
           <label className="label">Password</label>
           <div className="relative">
@@ -75,6 +77,7 @@ export default function SignUpForm({
               minLength="8"
               onChange={handleChange}
               required
+              className="mb-2"
             />
             <button
               type="button"
@@ -108,7 +111,7 @@ export default function SignUpForm({
             SIGN UP
           </Button>
         </Form>
-        <p className="error-message">&nbsp;{error}</p>
+        <p className="error-message text-error">&nbsp;{error}</p>
       </div>
     </>
   );

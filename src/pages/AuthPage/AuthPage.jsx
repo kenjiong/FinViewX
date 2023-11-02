@@ -24,6 +24,8 @@ export default function AuthPage({ setUser }) {
     <main className="flex flex-col items-center justify-center min-h-screen">
       {show ? (
         <>
+          <img src="/colorlogo.svg" height="300px" width="300px" />
+          <br />
           <h2 className="mb-5 text-2xl font-bold text-accent">
             Log in to your FinViewX Account
           </h2>
@@ -33,13 +35,15 @@ export default function AuthPage({ setUser }) {
             handleShowPassword={handleShowPassword}
           />
           <br />
-          Don't have a FinViewX account?{" "}
+          <span className="mb-2">Don't have a FinViewX account?</span>
           <Button onClick={handleShow} color="secondary" size="sm">
             Sign Up Here
           </Button>
         </>
       ) : (
         <>
+          <img src="/colorlogo.svg" height="300px" width="300px" />
+          <br />
           <h2 className="mb-5 text-2xl font-bold text-accent">
             Register for a FinViewX Account!
           </h2>
@@ -51,7 +55,7 @@ export default function AuthPage({ setUser }) {
             handleShowConfirm={handleShowConfirm}
           />
           <br />
-          Already have a FinViewX account?{" "}
+          <span className="mb-2">Already have a FinViewX account?</span>
           <Button onClick={handleShow} color="secondary" size="sm">
             Login Here
           </Button>

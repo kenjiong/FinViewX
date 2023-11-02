@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "react-daisyui";
 import * as savingsService from "../../utilities/savings-service";
 import debug from "debug";
 
@@ -29,12 +30,12 @@ export default function EditEmergencyFundForm({ savings }) {
   }
 
   return (
-    <div>
-      <h3>Edit Emergency Fund</h3>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleEdit}>
-          <label>Estimated Monthly Expenses</label>
-          <input
+    <div className="flex flex-col items-center mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-accent">Edit Emergency Fund</h2>
+      <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <Form autoComplete="off" onSubmit={handleEdit}>
+          <label className="label">Estimated Monthly Expenses</label>
+          <Input
             type="number"
             name="monthlyExpenses"
             step=".01"
@@ -43,8 +44,8 @@ export default function EditEmergencyFundForm({ savings }) {
             onChange={(event) => setMonthlyExpenses(event.target.value)}
             required
           />
-          <label>No. of months</label>
-          <input
+          <label className="label">No. of months</label>
+          <Input
             type="number"
             name="months"
             value={months}
@@ -52,11 +53,15 @@ export default function EditEmergencyFundForm({ savings }) {
             onChange={(event) => setMonths(event.target.value)}
             required
           />
-          <small>Recommended: 3-6 months</small>
-          <button type="submit">Edit Your Emergency Fund</button>
-        </form>
+          <label className="label-text-alt text-secondary">*Recommended: 3-6 months</label>
+          <br />
+          <span className="flex justify-center">
+          <Button type="button" color="accent" onClick={()=>navigate("/save")}>Back</Button>&nbsp;&nbsp;
+          <Button type="submit" color="primary">Edit Your Emergency Fund</Button>
+          </span>
+        </Form>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
+      <p className="error-message text-error">&nbsp;{error}</p>
     </div>
   );
 }

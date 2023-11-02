@@ -40,14 +40,14 @@ export default function SavingsChart({
             border: "1px solid #ccc",
           }}
         >
-          <p>
+          <p className="text-primary">
             Keep for emergencies: S$
             {totalEmergencyFund.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
           </p>
-          <p>
+          <p className="text-primary">
             Optimise: S$
             {Math.abs(shortfall).toLocaleString(undefined, {
               minimumFractionDigits: 2,
@@ -94,10 +94,10 @@ export default function SavingsChart({
     <>
       {shortfall < 0 ? (
         <PieChart width={700} height={350}>
-          <text x={350} y={165} textAnchor="middle" dominantBaseline="middle">
+          <text x={350} y={165} style={{ fill: "white" }} textAnchor="middle" dominantBaseline="middle">
             Total savings
           </text>
-          <text x={350} y={185} textAnchor="middle" dominantBaseline="middle">
+          <text x={350} y={190} style={{ fill: "white" }} textAnchor="middle" dominantBaseline="middle">
             S$
             {totalSavings.toLocaleString(undefined, {
               minimumFractionDigits: 2,
@@ -128,7 +128,7 @@ export default function SavingsChart({
           <text x={350} y={165}  style={{ fill: "white" }} textAnchor="middle" dominantBaseline="middle">
             Ideal emergency funds
           </text>
-          <text x={350} y={185} textAnchor="middle" dominantBaseline="middle">
+          <text x={350} y={190} style={{ fill: "white" }} textAnchor="middle" dominantBaseline="middle">
             S$
             {totalEmergencyFund.toLocaleString(undefined, {
               minimumFractionDigits: 2,

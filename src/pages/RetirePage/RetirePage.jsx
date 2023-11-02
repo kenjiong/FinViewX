@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-daisyui";
 import RetirementChart from "../../components/RetirementChart/RetirementChart";
 import * as retirementService from "../../utilities/retirement-service";
 import * as assetsService from "../../utilities/assets-service";
@@ -79,42 +80,41 @@ export default function RetirePage({ user }) {
     <>
       {user.tier === "free" ? (
         <>
-          <h3>The Retire feature is only available for Premium users!</h3>
-          <br />
-          <p>Don't miss out! Subscribe to Premium today!</p>
-          <Link to="/premium">
-            <button className="btn">Subscribe</button>
-          </Link>
+          <div className="flex flex-col items-center justify-center mt-auto">
+            <h3 className="mb-5 text-2xl text-accent">
+              The Retire feature is only available for Premium users!
+            </h3>
+            <br />
+            <p className="mb-5 text-xl">
+              Don't miss out - subscribe to Premium today!
+            </p>
+            <br />
+            <Link to="/premium">
+              <Button color="secondary">Subscribe</Button>
+            </Link>
+          </div>
         </>
       ) : user.tier === "premium" ? (
         retirement[0]?.monthlyExpenses ? (
           currentOA && currentSA ? (
             <>
-              <div>
-                <p>Your retirement goal:</p>
-                <p>
+              <div className="flex flex-col items-center mt-auto mb-5">
+                <p className="text-2xl mb-1 text-secondary">
+                  Your retirement goal:
+                </p>
+                <p className="text-xl">
                   Retire at age {retirement[0]?.retirementAge} with monthly
                   expenses of S$
                   {retirement[0]?.monthlyExpenses.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}{" "}
-                  until age {retirement[0]?.lifeExpectancy}
+                  until age {retirement[0]?.lifeExpectancy}.
                 </p>
-                <span>
-                  <Link
-                    to="/retire/form"
-                    state={{
-                      retirement: retirement[0],
-                    }}
-                  >
-                    <button>Edit Retirement Goal</button>
-                  </Link>
-                </span>
               </div>
               <br />
-              <div>
-                <span>
+              <div className="flex flex-col items-center mt-auto">
+                <span className="mb-8">
                   <RetirementChart
                     currentOA={currentOA}
                     currentSA={currentSA}
@@ -130,66 +130,83 @@ export default function RetirePage({ user }) {
                 </span>
                 <span>
                   {shortfall < 0 ? (
-                    <p>You've met your retirement goal!</p>
+                    <p className="text-2xl text-success">
+                      You've met your retirement goal!
+                    </p>
                   ) : (
-                    <p>
-                      You need S$
+                    <p className="text-2xl text-error">
+                      You need <u>S$
                       {shortfall.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
-                      })}{" "}
+                      })}</u>{" "}
                       more to achieve your retirement goal.
                     </p>
                   )}
                 </span>
               </div>
-              <div>
-                <p>
-                  You currently have S$
+              <div className="flex flex-col items-center mt-10">
+                <p className="text-xl">
+                  You currently have <u>S$
                   {currentOA?.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  })}{" "}
-                  in your CPF OA and S$
+                  })}</u>{" "}
+                  in your CPF OA and <u>S$
                   {currentSA?.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  })}{" "}
+                  })}</u>{" "}
                   in your CPF SA.
                 </p>
-                <p>
-                  Your CPF balance is projected to be S$
+                <p className="text-xl">
+                  Your CPF balance is projected to be <u>S$
                   {getCPFBalance(
                     currentAge,
                     retirement[0]?.retirementAge
                   )?.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  })}{" "}
+                  })}</u>{" "}
                   at your intended retirement age of{" "}
                   {retirement[0]?.retirementAge}.
                 </p>
-                <p>
+                <p className="text-xl">
                   Your total estimated retirement expenses until age{" "}
-                  {retirement[0]?.lifeExpectancy} is S$
+                  {retirement[0]?.lifeExpectancy} is <u>S$
                   {totalExpenses.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  })}
+                  })}</u>
                   .
                 </p>
               </div>
+              <div className="flex flex-col items-center mt-8">
+                <Link
+                  to="/retire/form"
+                  state={{
+                    retirement: retirement[0],
+                  }}
+                >
+                  <Button color="primary">Edit Retirement Goal</Button>
+                </Link>
+              </div>
             </>
           ) : (
-            <span>
-              Please enter both your CPF OA and SA values in your dashboard
-              before you are able to view your retirement goal.
-            </span>
+            <div className="flex flex-col items-center mt-auto">
+              <span className="text-2xl text-accent mb-6">
+                Please enter both your CPF OA and SA values in your dashboard
+                before you are able to view your retirement goal.
+              </span>
+              <Link to="/dashboard">
+                <Button color="primary">Take me to my dashboard</Button>
+              </Link>
+            </div>
           )
         ) : (
           <>
-            <div>
-              <span>You have not set a retirement goal yet!</span>
+            <div className="flex flex-col items-center mt-auto">
+              <span className="text-3xl mb-6">You have not set a retirement goal yet!</span>
               <br />
               {currentOA && currentSA ? (
                 <span>
@@ -199,21 +216,26 @@ export default function RetirePage({ user }) {
                       retirement: retirement[0],
                     }}
                   >
-                    <button>Set Retirement Goal</button>
+                    <Button color="primary">Set Retirement Goal</Button>
                   </Link>
                 </span>
               ) : (
-                <span>
+                <div className="flex flex-col items-center mt-auto">
+                <span className="text-2xl text-accent mb-6">
                   Please enter both your CPF OA and SA values in your dashboard
                   before you are able to set your retirement goal.
                 </span>
+                <Link to="/dashboard">
+                  <Button color="primary">Take me to my dashboard</Button>
+                </Link>
+              </div>
               )}
             </div>
           </>
         )
       ) : (
-        <div>
-          <h2>Something went wrong.</h2>
+        <div className="flex flex-col items-center mt-auto">
+          <h2 className="text-3xl text-error">Something went wrong.</h2>
         </div>
       )}
     </>

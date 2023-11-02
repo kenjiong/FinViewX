@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "react-daisyui";
 import moment from "moment";
 import * as retirementService from "../../utilities/retirement-service";
 
@@ -37,23 +38,23 @@ export default function SetRetirementGoalForm() {
   }
 
   return (
-    <div>
-      <h3>Set Retirement Goal</h3>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Your birth date</label>
-          <input
+    <div className="flex flex-col items-center mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-accent">Set Retirement Goal</h2>
+      <div className="flex w-full component-preview p-4 items-center justify-center gap-2 font-sans">
+        <Form autoComplete="off" onSubmit={handleSubmit}>
+          <label className="label">Your birth date</label>
+          <Input
             type="date"
             name="birthDate"
             value={formData.birthDate}
             onChange={handleChange}
             max={today}
             required
-          /><br />
-          <small>*Your birth date cannot be modified after setting</small>
+          />
+          <label className="label-text-alt text-warning">*Your birth date cannot be modified later</label>
           <br />
-          <label>Your ideal retirement age</label>
-          <input
+          <label className="label">Your ideal retirement age</label>
+          <Input
             type="number"
             name="retirementAge"
             value={formData.retirementAge}
@@ -61,11 +62,11 @@ export default function SetRetirementGoalForm() {
             min="1"
             onChange={handleChange}
             required
-          /><br />
-          <small>The minimum retirement age in Singapore is 63</small>
+          />
+          <label className="label-text-alt text-secondary">*The minimum retirement age in Singapore is 63</label>
           <br />
-          <label>Your live till age</label>
-          <input
+          <label className="label">Your live till age</label>
+          <Input
             type="number"
             name="lifeExpectancy"
             value={formData.lifeExpectancy}
@@ -73,11 +74,11 @@ export default function SetRetirementGoalForm() {
             min="1"
             onChange={handleChange}
             required
-          /><br />
-          <small>The average life expectancy in Singapore is 83.9 years</small>
+          />
+          <label className="label-text-alt text-secondary">*The average life expectancy in Singapore is 83.9 years</label>
           <br />
-          <label>Estimated monthly expenses after retirement</label>
-          <input
+          <label className="label">Estimated monthly expenses after retirement</label>
+          <Input
             type="number"
             name="monthlyExpenses"
             step=".01"
@@ -88,10 +89,13 @@ export default function SetRetirementGoalForm() {
             required
           />
           <br />
-          <button type="submit">Set Your Retirement Goal</button>
-        </form>
+          <span className="flex justify-center">
+          <Button type="button" color="accent" onClick={()=>navigate("/retire")}>Back</Button>&nbsp;&nbsp;
+          <Button type="submit" color="primary">Set Your Retirement Goal</Button>
+          </span>
+        </Form>
       </div>
-      <p className="error-message">&nbsp;{error}</p>
+      <p className="error-message text-error">&nbsp;{error}</p>
     </div>
   );
 }
