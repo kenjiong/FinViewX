@@ -59,9 +59,9 @@ export default function EditEmergencyFundForm({ savings }) {
           <Button type="button" color="accent" onClick={()=>navigate("/save")}>Back</Button>&nbsp;&nbsp;
           <Button type="submit" color="primary">Edit Your Emergency Fund</Button>
           </span>
+          <p className="error-message text-error flex justify-center mt-2">&nbsp;{error}</p>
         </Form>
       </div>
-      <p className="error-message text-error">&nbsp;{error}</p>
     </div>
   );
 }

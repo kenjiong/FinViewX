@@ -112,9 +112,9 @@ export default function AddAssetForm({
           <Button type="button" color="accent" onClick={() => setShowAssetForm(false)}>Back</Button>&nbsp;&nbsp;
           <Button type="submit" color="primary">Add Asset</Button>
           </span>
+          <p className="error-message text-error flex justify-center mt-2">&nbsp;{error}</p>
         </Form>
       </div>
-      <p className="error-message text-error">&nbsp;{error}</p>
     </div>
   );
 }

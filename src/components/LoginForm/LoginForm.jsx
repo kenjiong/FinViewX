@@ -68,8 +68,8 @@ export default function LoginForm({
           </div>
           <br />
           <Button type="submit">LOG IN</Button>
+          <p className="error-message text-error flex justify-center mt-2">&nbsp;{error}</p>
         </Form>
-        <p className="error-message text-error">&nbsp;{error}</p>
       </div>
     </>
   );

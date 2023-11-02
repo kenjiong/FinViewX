@@ -34,7 +34,6 @@ export default function AuthPage({ setUser }) {
             showPassword={showPassword}
             handleShowPassword={handleShowPassword}
           />
-          <br />
           <span className="mb-2">Don't have a FinViewX account?</span>
           <Button onClick={handleShow} color="secondary" size="sm">
             Sign Up Here
@@ -54,7 +53,6 @@ export default function AuthPage({ setUser }) {
             showConfirm={showConfirm}
             handleShowConfirm={handleShowConfirm}
           />
-          <br />
           <span className="mb-2">Already have a FinViewX account?</span>
           <Button onClick={handleShow} color="secondary" size="sm">
             Login Here
