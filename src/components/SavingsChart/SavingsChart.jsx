@@ -8,25 +8,25 @@ export default function SavingsChart({
   const colors1 = ["#00C49F", "#0088FE"];
   const colors2 = ["#F436FF", "#ADADAD"];
 
-  const data01 = [
+  const data1 = [
     {
       name: "Keep for emergencies",
-      value: totalEmergencyFund,
+      value: parseFloat(totalEmergencyFund.toFixed(2)),
     },
     {
       name: "Optimise",
-      value: Math.abs(shortfall),
+      value: parseFloat(Math.abs(shortfall).toFixed(2)),
     },
   ];
 
-  const data02 = [
+  const data2 = [
     {
       name: "Your current savings",
-      value: totalSavings,
+      value: parseFloat(totalSavings.toFixed(2)),
     },
     {
       name: "You need another",
-      value: shortfall,
+      value: parseFloat(shortfall.toFixed(2)),
     },
   ];
 
@@ -105,7 +105,7 @@ export default function SavingsChart({
             })}
           </text>
           <Pie
-            data={data01}
+            data={data1}
             dataKey="value"
             nameKey="name"
             cx="50%"
@@ -114,7 +114,7 @@ export default function SavingsChart({
             outerRadius={120}
             label
           >
-            {data01.map((entry, index) => (
+            {data1.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={colors1[index % colors1.length]}
@@ -136,7 +136,7 @@ export default function SavingsChart({
             })}
           </text>
           <Pie
-            data={data02}
+            data={data2}
             dataKey="value"
             nameKey="name"
             cx="50%"
@@ -145,7 +145,7 @@ export default function SavingsChart({
             outerRadius={120}
             label
           >
-            {data02.map((entry, index) => (
+            {data2.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={colors2[index % colors2.length]}

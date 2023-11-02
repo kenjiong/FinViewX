@@ -8,7 +8,7 @@ import debug from "debug";
 const log = debug("finviewx:src:RetirePage");
 
 const calculateAge = (date) => {
-  const today = new Date()
+  const today = new Date();
   const birthDate = new Date(date);
   let age = today.getFullYear() - birthDate.getFullYear();
   const month = today.getMonth() - birthDate.getMonth();
@@ -57,12 +57,12 @@ export default function RetirePage({ user }) {
   const getCPFBalance = (age, retireAge) => {
     let cpfBalance;
     if (age > 54) {
-      cpfBalance = (currentOA + currentSA) * (1.04 ^ (retireAge - age));
+      cpfBalance = (currentOA + currentSA) * 1.04 ** (retireAge - age);
       return cpfBalance;
     } else {
       cpfBalance =
-        (currentOA * (1.025 ^ (55 - age)) + currentSA * (1.04 ^ (55 - age))) *
-        (1.04 ^ (retireAge - 55));
+        (currentOA * 1.025 ** (55 - age) + currentSA * 1.04 ** (55 - age)) *
+        1.04 ** (retireAge - 55);
       return cpfBalance;
     }
   };
@@ -72,6 +72,8 @@ export default function RetirePage({ user }) {
     (retirement[0]?.lifeExpectancy - retirement[0]?.retirementAge);
   const shortfall =
     totalExpenses - getCPFBalance(currentAge, retirement[0]?.retirementAge);
+  const leftover =
+    getCPFBalance(currentAge, retirement[0]?.retirementAge) - totalExpenses;
 
   return (
     <>
@@ -85,92 +87,106 @@ export default function RetirePage({ user }) {
           </Link>
         </>
       ) : user.tier === "premium" ? (
-        retirement[0]?.monthlyExpenses ? ( 
+        retirement[0]?.monthlyExpenses ? (
           currentOA && currentSA ? (
-          <>
-            <div>
-              <p>Your retirement goal:</p>
-              <p>
-                Retire at age {retirement[0]?.retirementAge} with monthly
-                expenses of S$
-                {retirement[0]?.monthlyExpenses.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}{" "}
-                until age {retirement[0]?.lifeExpectancy}
-              </p>
-              <span>
-                <Link
-                  to="/retire/form"
-                  state={{
-                    retirement: retirement[0]
-                  }}
-                >
-                  <button>Edit Retirement Goal</button>
-                </Link>
-              </span>
-            </div>
-            <br />
-            <div>
-              <span>
-                <RetirementChart />
-              </span>
-              <span>
-                {shortfall < 0 ? (
-                  <p>You've met your retirement goal!</p>
-                ) : (
-                  <p>
-                    You need S$
-                    {shortfall.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}{" "}
-                    more to achieve your retirement goal.
-                  </p>
-                )}
-              </span>
-            </div>
-            <div>
-              <p>
-                You currently have S$
-                {currentOA?.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}{" "}
-                in your CPF OA and S$
-                {currentSA?.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}{" "}
-                in your CPF SA.
-              </p>
-              <p>
-                Your CPF balance is projected to be S$
-                {getCPFBalance(
-                  currentAge,
-                  retirement[0]?.retirementAge
-                )?.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}{" "}
-                at your intended retirement age of{" "}
-                {retirement[0]?.retirementAge}.
-              </p>
-              <p>
-                Your total estimated retirement expenses until age{" "}
-                {retirement[0]?.lifeExpectancy} is S$
-                {totalExpenses.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}.
-              </p>
-            </div>
-          </>
+            <>
+              <div>
+                <p>Your retirement goal:</p>
+                <p>
+                  Retire at age {retirement[0]?.retirementAge} with monthly
+                  expenses of S$
+                  {retirement[0]?.monthlyExpenses.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  until age {retirement[0]?.lifeExpectancy}
+                </p>
+                <span>
+                  <Link
+                    to="/retire/form"
+                    state={{
+                      retirement: retirement[0],
+                    }}
+                  >
+                    <button>Edit Retirement Goal</button>
+                  </Link>
+                </span>
+              </div>
+              <br />
+              <div>
+                <span>
+                  <RetirementChart
+                    currentOA={currentOA}
+                    currentSA={currentSA}
+                    retirementAge={retirement[0]?.retirementAge}
+                    lifeExpectancy={retirement[0]?.lifeExpectancy}
+                    cpfBalance={getCPFBalance(
+                      currentAge,
+                      retirement[0]?.retirementAge
+                    )}
+                    shortfall={shortfall}
+                    leftover={leftover}
+                  />
+                </span>
+                <span>
+                  {shortfall < 0 ? (
+                    <p>You've met your retirement goal!</p>
+                  ) : (
+                    <p>
+                      You need S$
+                      {shortfall.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}{" "}
+                      more to achieve your retirement goal.
+                    </p>
+                  )}
+                </span>
+              </div>
+              <div>
+                <p>
+                  You currently have S$
+                  {currentOA?.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  in your CPF OA and S$
+                  {currentSA?.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  in your CPF SA.
+                </p>
+                <p>
+                  Your CPF balance is projected to be S$
+                  {getCPFBalance(
+                    currentAge,
+                    retirement[0]?.retirementAge
+                  )?.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  at your intended retirement age of{" "}
+                  {retirement[0]?.retirementAge}.
+                </p>
+                <p>
+                  Your total estimated retirement expenses until age{" "}
+                  {retirement[0]?.lifeExpectancy} is S$
+                  {totalExpenses.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                  .
+                </p>
+              </div>
+            </>
+          ) : (
+            <span>
+              Please enter both your CPF OA and SA values in your dashboard
+              before you are able to view your retirement goal.
+            </span>
+          )
         ) : (
-          <span>
-          Please enter both your CPF OA and SA values in your dashboard before you are able to view your retirement goal.
-        </span>
-        )) : (
           <>
             <div>
               <span>You have not set a retirement goal yet!</span>
@@ -180,7 +196,7 @@ export default function RetirePage({ user }) {
                   <Link
                     to="/retire/form"
                     state={{
-                      retirement: retirement[0]
+                      retirement: retirement[0],
                     }}
                   >
                     <button>Set Retirement Goal</button>
