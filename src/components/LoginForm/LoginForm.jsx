@@ -10,8 +10,8 @@ export default function LoginForm({
   handleShowPassword,
 }) {
   const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+    email: "demo@demo.com",
+    password: "abcd1234",
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -68,7 +68,9 @@ export default function LoginForm({
           </div>
           <br />
           <Button type="submit">LOG IN</Button>
-          <p className="error-message text-error flex justify-center mt-2">&nbsp;{error}</p>
+          <p className="error-message text-error flex justify-center mt-2">
+            &nbsp;{error}
+          </p>
         </Form>
       </div>
     </>
